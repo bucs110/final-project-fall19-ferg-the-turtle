@@ -2,20 +2,20 @@
 
 # << Project Title >>
 ## CS 110 Final Project
-### << Semester, Year >>
+###    Fall, 2019 
 ### [Assignment Description](https://drive.google.com/open?id=1HLIk-539N9KiAAG1224NWpFyEl4RsPVBwtBZ9KbjicE)
 
 << [https://github.com/<repo>](#) >>
 
 << [link to demo presentation slides](#) >>
 
-### Team: << team name >>
-#### << Team Members >>
+### Team: Ferg the Turtle 
+#### Christopher Simak, Aidan Ferguson, Joe Lieberman
 
 ***
 
 ## Project Description
-<< Give an overview of your project >>
+<< Give an overview of your project  >>
 
 ***    
 
@@ -44,15 +44,15 @@
 ## Tasks and Responsibilities
 * You must outline the team member roles and who was responsible for each class/method, both individual and collaborative.
 
-### Software Lead - << name >>
+### Software Lead - << Adian Ferguson  >>
 
 << Worked as integration specialist by... >>
 
-### Front End Specialist - << name >>
+### Front End Specialist - << Joe Lieberman >>
 
 << Front-end lead conducted significant research on... >>
 
-### Back End Specialist - << name >>
+### Back End Specialist - << Chris Simak >>
 
 << The back end specialist... >>
 
