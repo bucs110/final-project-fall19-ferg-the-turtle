@@ -2,14 +2,14 @@
 
 # << Project Title >>
 ## CS 110 Final Project
-###    Fall, 2019 
+###    Fall, 2019
 ### [Assignment Description](https://drive.google.com/open?id=1HLIk-539N9KiAAG1224NWpFyEl4RsPVBwtBZ9KbjicE)
 
 << [https://github.com/<repo>](#) >>
 
 << [link to demo presentation slides](#) >>
 
-### Team: Ferg the Turtle 
+### Team: Ferg the Turtle
 #### Christopher Simak, Aidan Ferguson, Joe Lieberman
 
 ***
@@ -34,7 +34,7 @@
         * a short description of the module
 * Class Interface Design
     * << A simple drawing that shows the class relationships in your code (see below for an example). >>
-        * ![class diagram](assets/class_diagram.jpg)
+        * ![Gui design ](assets/gui_design.jpg)
     * This does not need to be overly detailed, but should show how your code fits into the Model/View/Controller paradigm.
 * Classes
     * << You should have a list of each of your classes with a description. >>
