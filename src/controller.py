@@ -1,25 +1,32 @@
 import sys
 import pygame
-from hero import Hero
+from src import hero
+from src import bullet
+from src import obstacle
 
 
 class Controller:
     def __init__(self, width=640, height=480):
-        self.font_name = font_name
         self.background = None
         self.screen = pygame.display.set_mode((height, width))
         self.state = "GAME"
         self.width = width
         self.height = height
-        self.mainCharacter = ("Mort", (width / 3, height / 3), "image")
-        self.white = ((255, 255, 255))
+        self.hero = hero.Hero("Mort", (width / 3, height / 3), "image")
+        self.obstacle = obstacle.Spikes("spikes",x,y,"image")
+        self.white = (255, 255, 255)
+        self.all_sprites = pygame.sprite.Group(self.hero)
 
     def mainLoop(self):
         while True:
             if self.state == "GAME":
                 self.gameLoop()
-            if self.state == "EXIT":
+            elif self.state == "EXIT":
                 self.endLoop()
+            elif self.state == "WIN"
+                self.gameIntroScreen()
+            elif self.state == "LOSE"
+                self.gameOverScreen()
 
     def drawText(self, text, font_name, font_size, x, y):
         font = pygame.font.Font(font_name, font_size)
@@ -64,8 +71,21 @@ class Controller:
                     sys.exit()
                 elif event.type == pygame.KEYDOWN:
                     if pygame.key == pygame.K_SPACE:
-                        Hero.jump("up")
+                        hero.Hero.jump("up")
+            collides = pygame.sprite.spritecollide(self.hero,self.obstacle,True)
+            if collides:
+                for collision in collides:
+
+
 
 
     def endLoop(self):
+        self.hero.kill()
+        myfont = pygame.font.SysFont(None, 30)
+        message = myfont.render('Game Over', False, (0, 0, 0))
+        self.screen.blit(message, (self.width / 2, self.height / 2))
+        pygame.display.flip()
         while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    sys.exit()

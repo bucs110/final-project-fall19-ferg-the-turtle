@@ -1,6 +1,6 @@
 import pygame
 
-class Obstacles(pygame.sprite.Sprite):
+class Spikes(pygame.sprite.Sprite):
    def __init__(self,name,x,y,img_file):
        pygame.sprite.Sprite.__init__(self)
        self.image = pygame.image.load(img_file).convert_alpha()
