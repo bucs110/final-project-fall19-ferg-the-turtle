@@ -19,6 +19,7 @@ class Controller:
         self.obstacles = pygame.sprite.Group((spikes.Spikes,), (wall.Wall,))
         self.bullets = pygame.sprite.Group()
         self.white = (255, 255, 255)
+        self.red = (255,0,0)
         self.all_sprites = pygame.sprite.Group((self.hero,) + (self.obstacles,) + (self.bullets,))
 
     def mainLoop(self):
@@ -72,7 +73,7 @@ class Controller:
         if self.pressKeyToStart():
             self.state = "GAME"
         while self.state == "GAME":
-            self.background.fill((255,0,0))
+            self.background.fill(self.red)
             for event in pygame.events:
                 if event.type == pygame.QUIT:
                     sys.exit()
@@ -84,14 +85,16 @@ class Controller:
             b = bullet.Bullet(60, 48, "right", "image")
             self.bullets.add(b)
             if collides:
-                self.running = False
+                self.state = "LOSE"
             elif bullet_collides:
                 #if the bullet collides with the wall
                 wall.Wall.kill()
 
 
+
     def sideScroller(self):
         background = pygame.image.load('background image')
+        #will get size of background image
         background_size = background.get_size()
         background_rect = background.get_rect()
         screen = pygame.display.set_mode(background_size)
