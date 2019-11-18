@@ -15,10 +15,11 @@ class Controller:
         self.width = width
         self.height = height
         self.hero = hero.Hero("Mort", (width / 3, height / 3), "image")
-        self.spikes = spikes.Spikes("spikes", x - value, y - value, "image")
-        self.bullets = bullet.Bullet()
+        #need to find out how to randomly spawn objects
+        self.obstacles = pygame.sprite.Group((spikes.Spikes,), (wall.Wall,))
+        self.bullets = pygame.sprite.Group()
         self.white = (255, 255, 255)
-        self.all_sprites = pygame.sprite.Group(self.hero)
+        self.all_sprites = pygame.sprite.Group((self.hero,) + (self.obstacles,) + (self.bullets,))
 
     def mainLoop(self):
         while self.running:
@@ -26,9 +27,9 @@ class Controller:
                 self.gameLoop()
             elif self.state == "EXIT":
                 self.endLoop()
-            elif self.state == "WIN"
+            elif self.state == "BEGIN":
                 self.gameIntroScreen()
-            elif self.state == "LOSE"
+            elif self.state == "LOSE":
                 self.gameOverScreen()
 
     def drawText(self, text, font_name, font_size, x, y):
@@ -41,7 +42,7 @@ class Controller:
     def gameIntroScreen(self):
         self.screen.fill((255, 0, 0))
         self.drawText("TITLE", 48, self.white, self.width / 2, self.height / 4)
-        self.drawText("Instructions of game", 20, self.white, self.width / 2, self.height / 2)
+        self.drawText("Space to jump up, right arrow to shoot", 20, self.white, self.width / 2, self.height / 2)
         self.drawText("Press any key to play", 20, self.white, self.width / 2, self.height * 3 / 4)
         pygame.display.flip()
         self.pressKeyToStart()
@@ -66,7 +67,10 @@ class Controller:
                     wait = False
 
     def gameLoop(self):
+        self.state = "BEGIN"
         pygame.key.set_repeat()
+        if self.pressKeyToStart():
+            self.state = "GAME"
         while self.state == "GAME":
             self.background.fill((255,0,0))
             for event in pygame.events:
@@ -75,13 +79,15 @@ class Controller:
                 elif event.type == pygame.KEYDOWN:
                     if pygame.key == pygame.K_SPACE:
                         hero.Hero.jump('up')
-            collides = pygame.sprite.spritecollide(self.hero,self.spikes,True)
-            bullet_collides = pygame.sprite.spritecollide(self.bullets,self.obstacle,True)
+            collides = pygame.sprite.spritecollide(self.hero, self.obstacles, True)
+            bullet_collides = pygame.sprite.spritecollide(self.bullets, wall.Wall, True)
+            b = bullet.Bullet(60, 48, "right", "image")
+            self.bullets.add(b)
             if collides:
                 self.running = False
             elif bullet_collides:
                 #if the bullet collides with the wall
-                self.wall.kill()
+                wall.Wall.kill()
 
 
     def sideScroller(self):
@@ -89,24 +95,24 @@ class Controller:
         background_size = background.get_size()
         background_rect = background.get_rect()
         screen = pygame.display.set_mode(background_size)
-        w,h = background_size
-        x=0
-        y=0
+        w, h = background_size
+        x = 0
+        y = 0
 
-        x1=0
-        y1= -h
+        x1 = 0
+        y1 = -h
         run = True
 
         while run:
             screen.blit(background,background_rect)
             pygame.display.update()
-            for event in pygame.event.get()
+            for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     run = False
-            y1+=5
-            y+=5
-            screen.blit(background,(x,y))
-            screen.blit(background,(x1,y1))
+            y1 += 5
+            y += 5
+            screen.blit(background, (x, y))
+            screen.blit(background, (x1, y1))
             if y > h:
                 y = -h
             elif y1 > h:
@@ -118,9 +124,9 @@ class Controller:
 
     def endLoop(self):
         #copied from lab, needs work
-        self.obstacle.kill()
-        myfont = pygame.font.SysFont(None, 30)
-        message = myfont.render('Game Over', False, (0, 0, 0))
+        self.hero.kill()
+        my_font = pygame.font.SysFont(None, 30)
+        message = my_font.render('Game Over', False, (0, 0, 0))
         self.screen.blit(message, (self.width / 2, self.height / 2))
         pygame.display.flip()
         while True:

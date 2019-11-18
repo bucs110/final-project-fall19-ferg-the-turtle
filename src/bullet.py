@@ -9,5 +9,5 @@ class Bullet(pygame.sprite.Sprite):
         self.rect.y = y
         self.direction = direction
     def update(self):
-        if self.direction == "right"
+        if self.direction == "right":
             self.rect.x += 10
