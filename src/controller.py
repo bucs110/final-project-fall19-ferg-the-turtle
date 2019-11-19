@@ -107,7 +107,7 @@ class Controller:
         run = True
 
         while run:
-            screen.blit(background,background_rect)
+            screen.blit(background, background_rect)
             pygame.display.update()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
