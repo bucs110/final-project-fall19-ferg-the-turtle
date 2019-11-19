@@ -11,9 +11,8 @@ class Hero(pygame.sprite.Sprite):
         self.rect.y = y
         self.direction = "right"
         self.speed = 3
-        self.jump_height = 10
+        self.name = name
 
     def jump(self,direction):
         if direction == "up":
-            self.rect.y -= self.jump_height
-    
+            self.rect.y -= 10    
