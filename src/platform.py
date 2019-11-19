@@ -8,3 +8,7 @@ class Platform(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+
+    def update_platform(self):
+        if.characer.rect.y > 1000:
+            character.rect.y == 1000

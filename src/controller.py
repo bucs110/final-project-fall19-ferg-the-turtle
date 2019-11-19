@@ -121,7 +121,6 @@ class Controller:
             elif y1 > h:
                 y1 = h
             pygame.display.flip()
-            pygame.display.update()
             pygame.time.Clock.tick(10)
 
 
