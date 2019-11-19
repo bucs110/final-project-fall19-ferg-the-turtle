@@ -4,6 +4,7 @@ from src import hero
 from src import bullet
 from src import spikes
 from src import wall
+from src import platform
 
 
 class Controller:
@@ -14,7 +15,7 @@ class Controller:
         self.state = "GAME"
         self.width = width
         self.height = height
-        self.hero = hero.Hero("Mort", (width / 3, height / 3), "image")
+        self.hero = hero.Hero("Mort", (width / 3, height / 3), self.run_sprite[0])
         #need to find out how to randomly spawn objects
         self.obstacles = pygame.sprite.Group((spikes.Spikes,), (wall.Wall,))
         self.bullet = None
@@ -41,20 +42,44 @@ class Controller:
         self.screen.blit(text_surface, text_rect)
 
     def gameIntroScreen(self):
-        self.screen.fill((255, 0, 0))
-        self.drawText("TITLE", 48, self.white, self.width / 2, self.height / 4)
-        self.drawText("Space to jump up, right arrow to shoot", 20, self.white, self.width / 2, self.height / 2)
-        self.drawText("Press any key to play", 20, self.white, self.width / 2, self.height * 3 / 4)
+        self.hero.kill()
+        background = pygame.image.load('background image')
+        # will get size of background image
+        background_size = background.get_size()
+        background_rect = background.get_rect()
+        background_screen = pygame.display.set_mode(background_size)
+        background_screen.blit(background, background_rect)
+        my_font = pygame.font.SysFont(None, 30)
+        message = my_font.render('Space Run', False, (0, 0, 0))
+        background_screen.blit(message, (self.width / 2, self.height / 2))
         pygame.display.flip()
-        self.pressKeyToStart()
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    sys.exit()
+                elif event.type == pygame.KEYDOWN:
+                    self.gameLoop()
+
 
     def gameOverScreen(self):
-        self.screen.fill((255, 0, 0))
-        self.drawText("GAME OVER", 48, self.white, self.width / 2, self.height / 4)
-        self.drawText("Score: maybe?", 20, self.white, self.width / 2, self.height / 2)
-        self.drawText("Press any key to play again", 20, self.white, self.width / 2, self.height * 3 / 4)
+        self.hero.kill()
+        background = pygame.image.load('background image')
+        # will get size of background image
+        background_size = background.get_size()
+        background_rect = background.get_rect()
+        background_screen = pygame.display.set_mode(background_size)
+        background_screen.blit(background, background_rect)
+        my_font = pygame.font.SysFont(None, 30)
+        message = my_font.render('Game Over, Press any key to play again.', False, (0, 0, 0))
+        background_screen.blit(message, (self.width / 2, self.height / 2))
         pygame.display.flip()
-        self.pressKeyToStart()
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    sys.exit()
+                elif event.type == pygame.KEYDOWN:
+                    self.gameLoop()
+
 
     def pressKeyToStart(self):
         wait = True
@@ -86,18 +111,18 @@ class Controller:
                         self.bullet = bullet.Bullet(self.hero.rect.centerx, self.hero.rect.centery,"right","assets/Sprites/bullet.png")
                         self.all_sprites.add(self.bullet)
 
-            collides = pygame.sprite.spritecollide(self.hero, self.obstacles)
+            collides = pygame.sprite.spritecollide(self.hero, self.obstacles, True)
             if collides:
                 self.state = "LOSE"
-            bullet_collides = pygame.sprite.spritecollide(self.bullet, wall.Wall)
+            bullet_collides = pygame.sprite.spritecollide(self.bullet, wall.Wall, False)
             bullet_collide_count = 0
             if bullet_collides:
                 bullet_collide_count += 1
                 if bullet_collide_count > 70:
                     wall.Wall.kill()
 
-            if self.bullet is not None:
-                self.bulet.update()
+            if (self.bullet is not None):
+                self.bullet.update()
             self.all_sprites.draw(self.screen)
             pygame.display.flip()
 
