@@ -17,10 +17,10 @@ class Controller:
         self.hero = hero.Hero("Mort", (width / 3, height / 3), "image")
         #need to find out how to randomly spawn objects
         self.obstacles = pygame.sprite.Group((spikes.Spikes,), (wall.Wall,))
-        self.bullets = pygame.sprite.Group()
+        self.bullet = None
         self.white = (255, 255, 255)
         self.red = (255,0,0)
-        self.all_sprites = pygame.sprite.Group((self.hero,) + (self.obstacles,) + (self.bullets,))
+        self.all_sprites = pygame.sprite.Group((self.hero,) + (self.obstacles,))
 
     def mainLoop(self):
         while self.running:
@@ -80,15 +80,26 @@ class Controller:
                 elif event.type == pygame.KEYDOWN:
                     if pygame.key == pygame.K_SPACE:
                         hero.Hero.jump('up')
-            collides = pygame.sprite.spritecollide(self.hero, self.obstacles, True)
-            bullet_collides = pygame.sprite.spritecollide(self.bullets, wall.Wall, True)
-            b = bullet.Bullet(60, 48, "right", "image")
-            self.bullets.add(b)
+                    if pygame.key == pygame.K_z:
+                        if self.bullet is not None:
+                            self.bullet.kill()
+                        self.bullet = bullet.Bullet(self.hero.rect.centerx, self.hero.rect.centery,"right","assets/Sprites/bullet.png")
+                        self.all_sprites.add(self.bullet)
+
+            collides = pygame.sprite.spritecollide(self.hero, self.obstacles)
             if collides:
                 self.state = "LOSE"
-            elif bullet_collides:
-                #if the bullet collides with the wall
-                wall.Wall.kill()
+            bullet_collides = pygame.sprite.spritecollide(self.bullet, wall.Wall)
+            bullet_collide_count = 0
+            if bullet_collides:
+                bullet_collide_count += 1
+                if bullet_collide_count > 70:
+                    wall.Wall.kill()
+
+            if self.bullet is not None:
+                self.bulet.update()
+            self.all_sprites.draw(self.screen)
+            pygame.display.flip()
 
 
 

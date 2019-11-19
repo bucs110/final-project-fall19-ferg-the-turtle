@@ -10,4 +10,4 @@ class Bullet(pygame.sprite.Sprite):
         self.direction = direction
     def update(self):
         if self.direction == "right":
-            self.rect.x += 10
+            self.rect.x += 15
