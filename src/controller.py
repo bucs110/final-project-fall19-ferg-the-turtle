@@ -86,14 +86,14 @@ class Controller:
                         self.bullet = bullet.Bullet(self.hero.rect.centerx, self.hero.rect.centery,"right","assets/Sprites/bullet.png")
                         self.all_sprites.add(self.bullet)
 
-            collides = pygame.sprite.spritecollide(self.hero, self.obstacles)
+            collides = pygame.sprite.spritecollide(self.hero, self.obstacles,True)
             if collides:
                 self.state = "LOSE"
-            bullet_collides = pygame.sprite.spritecollide(self.bullet, wall.Wall)
+            bullet_collides = pygame.sprite.spritecollide(self.bullet, wall.Wall, None)
             bullet_collide_count = 0
             if bullet_collides:
                 bullet_collide_count += 1
-                if bullet_collide_count > 70:
+                if bullet_collide_count > 20:
                     wall.Wall.kill()
 
             if self.bullet is not None:
