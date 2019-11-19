@@ -8,6 +8,8 @@ class Bullet(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
         self.direction = direction
+
     def update(self):
         if self.direction == "right":
             self.rect.x += 15
+j
