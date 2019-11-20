@@ -16,10 +16,14 @@ class Controller:
         self.state = "GAME"
         self.width = width
         self.height = height
-        self.run_sprite = ["assets/Sprites/run 1.png", "assets/Sprites/run 2.png", "assets/Sprites/run 3.png", "assets/Sprites/run 4.png", "assets/Sprites/run 5.png", "assets/Sprites/run 6.png"]
+        self.run_sprite = ["assets/Sprites/run 1.png", "assets/Sprites/run 2.png", "assets/Sprites/run 3.png",
+                           "assets/Sprites/run 4.png", "assets/Sprites/run 5.png", "assets/Sprites/run 6.png"]
         self.jump_sprite = ["assets/Sprites/jump1.png", "assets/Sprites/jump2.png"]
-        self.run_shoot_sprite = ["assets/Sprites/runshoot1.png", "assets/Sprites/runshoot2.png","assets/Sprites/runshoot3.png", "assets/Sprites/runshoot4.png", "assets/Sprites/runshoot5.png", "assets/Sprites/runshoot6.png"]
-        self.hero = (hero.Hero("Johnny", self.width / 3, self.height / 3, "assets/Sprites/run 1.png",))
+        self.run_shoot_sprite = ["assets/Sprites/runshoot1.png", "assets/Sprites/runshoot2.png",
+                                 "assets/Sprites/runshoot3.png", "assets/Sprites/runshoot4.png",
+                                 "assets/Sprites/runshoot5.png", "assets/Sprites/runshoot6.png"]
+
+        self.hero = (hero.Hero("Johnny", self.width / 3, self.height / 3, "assets/Sprites/run 1.png"))
         self.obstacles = pygame.sprite.Group()
         self.bullet = None
         self.white = (255, 255, 255)
@@ -27,13 +31,12 @@ class Controller:
         self.black = (0, 0, 0)
         self.all_sprites = pygame.sprite.Group((self.hero,) + tuple(self.obstacles))
         self.platforms = pygame.sprite.Group()
+        self.score = 0
 
     def mainLoop(self):
         while self.running:
             if self.state == "GAME":
                 self.gameLoop()
-            elif self.state == "EXIT":
-                self.endLoop()
             elif self.state == "BEGIN":
                 self.gameIntroScreen()
             elif self.state == "LOSE":
@@ -41,7 +44,7 @@ class Controller:
 
     def gameIntroScreen(self):
         self.hero.kill()
-        background = pygame.image.load('background image')
+        background = pygame.image.load('assets/Sprites/Pygamespacebackground.jpg')
         # need a background image
         # will get size of background image
         background_size = background.get_size()
@@ -49,12 +52,12 @@ class Controller:
         background_screen = pygame.display.set_mode(background_size)
         background_screen.blit(background, background_rect)
         my_font = pygame.font.SysFont(None, 30)
-        name_of_game = my_font.render('Space Run', False, self.black)
-        instructions = my_font.render('Hit space to jump, Hit "z" to shoot. Press any key to play.', False, self.black)
+        name_of_game = my_font.render('Space Run', False, self.white)
+        instructions = my_font.render('Hit space to jump, Hit "z" to shoot. Press any key to play.', False, self.white)
         background_screen.blit(name_of_game, (self.width / 2, self.height / 2))
         background_screen.blit(instructions, (self.width / 2, self.height / 4))
         pygame.display.flip()
-        while self.running:
+        while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
@@ -63,7 +66,7 @@ class Controller:
 
     def gameOverScreen(self):
         self.hero.kill()
-        background = pygame.image.load('background image')
+        background = pygame.image.load('assets/Sprites/Pygamespacebackground.jpg')
         # will get size of background image
         # if background_screen doesn't work, change to self.screen
         background_size = background.get_size()
@@ -74,7 +77,7 @@ class Controller:
         message = my_font.render('Game Over, Press any key to play again.', False, (0, 0, 0))
         background_screen.blit(message, (self.width / 2, self.height / 2))
         pygame.display.flip()
-        while self.running:
+        while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
@@ -87,10 +90,9 @@ class Controller:
         self.screen.blit(platform1)
         pygame.display.flip()
 
-
     def gameLoop(self):
-        self.state = "BEGIN"
-        pygame.key.set_repeat()
+        self.gameIntroScreen()
+        pygame.key.set_repeat(1, 50)
         while self.state == "GAME":
             self.update_platform()
             self.sideScroller()
@@ -104,7 +106,8 @@ class Controller:
                     elif pygame.key == pygame.K_z:
                         if self.bullet is not None:
                             self.bullet.kill()
-                        self.bullet = bullet.Bullet(self.hero.rect.centerx, self.hero.rect.centery, "right", "assets/Sprites/bullet.png")
+                        self.bullet = bullet.Bullet(self.hero.rect.centerx, self.hero.rect.centery, "right",
+                                                    "assets/Sprites/bullet.png")
                         self.all_sprites.add(self.bullet)
             if (random.randrange(4) == 0):
                 # in the loop, so will keep spawning objects, needs work though
@@ -112,6 +115,7 @@ class Controller:
                 self.screen.blit(self.obstacles)
                 pygame.display.flip()
 
+            get_coin = pygame.sprite.spritecollide(self.hero, coin.Coin(), True)
             bullet_collides = pygame.sprite.spritecollide(self.bullet, wall.Wall, False)
             collides = pygame.sprite.spritecollide(self.hero, self.obstacles, True)
             bullet_collide_count = 0
@@ -123,6 +127,9 @@ class Controller:
                     wall.Wall.kill()
             elif (self.bullet is not None):
                 self.bullet.update()
+            elif get_coin:
+                coin.Coin.kill()
+                self.score += 10
 
             self.all_sprites.draw(self.screen)
             pygame.display.flip()
@@ -158,15 +165,3 @@ class Controller:
                 y1 = h
             pygame.display.flip()
             pygame.time.Clock.tick(10)
-
-    def endLoop(self):
-        # copied from lab, needs work. I think this isn't needed due to 'game over screen'.
-        self.hero.kill()
-        my_font = pygame.font.SysFont(None, 30)
-        message = my_font.render('Game Over', False, (0, 0, 0))
-        self.screen.blit(message, (self.width / 2, self.height / 2))
-        pygame.display.flip()
-        while True:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    sys.exit()
