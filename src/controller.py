@@ -6,6 +6,7 @@ from src import bullet
 from src import spikes
 from src import wall
 from src import platform
+from src import coin
 
 
 class Controller:
@@ -32,6 +33,7 @@ class Controller:
         self.all_sprites = pygame.sprite.Group((self.hero,) + tuple(self.obstacles))
         self.platforms = pygame.sprite.Group()
         self.score = 0
+        self.coins = pygame.sprite.Group()
 
     def mainLoop(self):
         while self.running:
