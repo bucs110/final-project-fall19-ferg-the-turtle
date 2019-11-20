@@ -1,5 +1,6 @@
 import sys
 import pygame
+import random
 from src import hero
 from src import bullet
 from src import spikes
@@ -15,13 +16,17 @@ class Controller:
         self.state = "GAME"
         self.width = width
         self.height = height
-        self.hero = hero.Hero("Mort", (width / 3, height / 3), self.run_sprite[0])
-        #need to find out how to randomly spawn objects
-        self.obstacles = pygame.sprite.Group((spikes.Spikes,), (wall.Wall,))
+        self.run_sprite = ["assets/Sprites/run 1.png", "assets/Sprites/run 2.png", "assets/Sprites/run 3.png", "assets/Sprites/run 4.png", "assets/Sprites/run 5.png", "assets/Sprites/run 6.png"]
+        self.jump_sprite = ["assets/Sprites/jump1.png", "assets/Sprites/jump2.png"]
+        self.run_shoot_sprite = ["assets/Sprites/runshoot1.png", "assets/Sprites/runshoot2.png","assets/Sprites/runshoot3.png", "assets/Sprites/runshoot4.png", "assets/Sprites/runshoot5.png", "assets/Sprites/runshoot6.png"]
+        self.hero = (hero.Hero("Johnny", self.width / 3, self.height / 3, "assets/Sprites/run 1.png",))
+        self.obstacles = pygame.sprite.Group()
         self.bullet = None
         self.white = (255, 255, 255)
-        self.red = (255,0,0)
-        self.all_sprites = pygame.sprite.Group((self.hero,) + (self.obstacles,))
+        self.red = (255, 0, 0)
+        self.black = (0, 0, 0)
+        self.all_sprites = pygame.sprite.Group((self.hero,) + tuple(self.obstacles))
+        self.platforms = pygame.sprite.Group()
 
     def mainLoop(self):
         while self.running:
@@ -34,37 +39,33 @@ class Controller:
             elif self.state == "LOSE":
                 self.gameOverScreen()
 
-    def drawText(self, text, font_name, font_size, x, y):
-        font = pygame.font.Font(font_name, font_size)
-        text_surface = font.render(text, True, font_name)
-        text_rect = text_surface.get_rect()
-        text_rect.mid_top = (x, y)
-        self.screen.blit(text_surface, text_rect)
-
     def gameIntroScreen(self):
         self.hero.kill()
         background = pygame.image.load('background image')
+        # need a background image
         # will get size of background image
         background_size = background.get_size()
         background_rect = background.get_rect()
         background_screen = pygame.display.set_mode(background_size)
         background_screen.blit(background, background_rect)
         my_font = pygame.font.SysFont(None, 30)
-        message = my_font.render('Space Run', False, (0, 0, 0))
-        background_screen.blit(message, (self.width / 2, self.height / 2))
+        name_of_game = my_font.render('Space Run', False, self.black)
+        instructions = my_font.render('Hit space to jump, Hit "z" to shoot. Press any key to play.', False, self.black)
+        background_screen.blit(name_of_game, (self.width / 2, self.height / 2))
+        background_screen.blit(instructions, (self.width / 2, self.height / 4))
         pygame.display.flip()
-        while True:
+        while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
                 elif event.type == pygame.KEYDOWN:
-                    self.gameLoop()
-
+                    self.state = "GAME"
 
     def gameOverScreen(self):
         self.hero.kill()
         background = pygame.image.load('background image')
         # will get size of background image
+        # if background_screen doesn't work, change to self.screen
         background_size = background.get_size()
         background_rect = background.get_rect()
         background_screen = pygame.display.set_mode(background_size)
@@ -73,31 +74,26 @@ class Controller:
         message = my_font.render('Game Over, Press any key to play again.', False, (0, 0, 0))
         background_screen.blit(message, (self.width / 2, self.height / 2))
         pygame.display.flip()
-        while True:
+        while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
                 elif event.type == pygame.KEYDOWN:
-                    self.gameLoop()
+                    self.state = "GAME"
 
+    def update_platform(self):
+        # needs work, still don't know how to do this
+        platform1 = platform.Platform(self.width, 50, self.width / 3, self.height / 3, (0, 0, 255))
+        self.screen.blit(platform1)
+        pygame.display.flip()
 
-    def pressKeyToStart(self):
-        wait = True
-        while wait:
-            pygame.time.Clock().tick(30)
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    wait = False
-                    self.endLoop()
-                elif event.type == pygame.KEYUP:
-                    wait = False
 
     def gameLoop(self):
         self.state = "BEGIN"
         pygame.key.set_repeat()
-        if self.pressKeyToStart():
-            self.state = "GAME"
         while self.state == "GAME":
+            self.update_platform()
+            self.sideScroller()
             self.background.fill(self.red)
             for event in pygame.events:
                 if event.type == pygame.QUIT:
@@ -105,38 +101,36 @@ class Controller:
                 elif event.type == pygame.KEYDOWN:
                     if pygame.key == pygame.K_SPACE:
                         hero.Hero.jump('up')
-                    if pygame.key == pygame.K_z:
+                    elif pygame.key == pygame.K_z:
                         if self.bullet is not None:
                             self.bullet.kill()
-                        self.bullet = bullet.Bullet(self.hero.rect.centerx, self.hero.rect.centery,"right","assets/Sprites/bullet.png")
+                        self.bullet = bullet.Bullet(self.hero.rect.centerx, self.hero.rect.centery, "right", "assets/Sprites/bullet.png")
                         self.all_sprites.add(self.bullet)
+            if (random.randrange(4) == 0):
+                # in the loop, so will keep spawning objects, needs work though
+                self.obstacles.add(spikes.Spikes('how do we get this on the platform', ), wall.Wall('same here'), )
+                self.screen.blit(self.obstacles)
+                pygame.display.flip()
 
-
-            collides = pygame.sprite.spritecollide(self.hero, self.obstacles,True)
-            if collides:
-                self.state = "LOSE"
-            bullet_collides = pygame.sprite.spritecollide(self.bullet, wall.Wall, None)
-
-            collides = pygame.sprite.spritecollide(self.hero, self.obstacles, True)
-            if collides:
-                self.state = "LOSE"
             bullet_collides = pygame.sprite.spritecollide(self.bullet, wall.Wall, False)
+            collides = pygame.sprite.spritecollide(self.hero, self.obstacles, True)
             bullet_collide_count = 0
-            if bullet_collides:
+            if collides:
+                self.state = "LOSE"
+            elif bullet_collides:
                 bullet_collide_count += 1
                 if bullet_collide_count > 20:
                     wall.Wall.kill()
-
-            if (self.bullet is not None):
+            elif (self.bullet is not None):
                 self.bullet.update()
+
             self.all_sprites.draw(self.screen)
             pygame.display.flip()
 
-
-
     def sideScroller(self):
         background = pygame.image.load('background image')
-        #will get size of background image
+        # will get size of background image
+        # may need to go inside gameLoop()
         background_size = background.get_size()
         background_rect = background.get_rect()
         screen = pygame.display.set_mode(background_size)
@@ -165,9 +159,8 @@ class Controller:
             pygame.display.flip()
             pygame.time.Clock.tick(10)
 
-
     def endLoop(self):
-        #copied from lab, needs work
+        # copied from lab, needs work. I think this isn't needed due to 'game over screen'.
         self.hero.kill()
         my_font = pygame.font.SysFont(None, 30)
         message = my_font.render('Game Over', False, (0, 0, 0))
