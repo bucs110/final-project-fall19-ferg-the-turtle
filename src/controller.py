@@ -10,13 +10,13 @@ from src import coin
 
 
 class Controller:
-    def __init__(self, width=640, height=480):
+    def __init__(self, width=900, height=1200):
         self.running = True
-        self.background = None
         self.screen = pygame.display.set_mode((height, width))
+        self.background = pygame.Surface(self.screen.get_size()).convert()
         self.state = "GAME"
-        self.width = width
         self.height = height
+        self.width = width
         self.run_sprite = ["assets/Sprites/run 1.png", "assets/Sprites/run 2.png", "assets/Sprites/run 3.png",
                            "assets/Sprites/run 4.png", "assets/Sprites/run 5.png", "assets/Sprites/run 6.png"]
         self.jump_sprite = ["assets/Sprites/jump1.png", "assets/Sprites/jump2.png"]
@@ -26,7 +26,6 @@ class Controller:
 
         self.hero = (hero.Hero("Johnny", self.width / 3, self.height / 3, "assets/Sprites/run 1.png"))
         self.obstacles = pygame.sprite.Group()
-        self.bullet = None
         self.white = (255, 255, 255)
         self.red = (255, 0, 0)
         self.black = (0, 0, 0)
@@ -34,6 +33,8 @@ class Controller:
         self.platforms = pygame.sprite.Group()
         self.score = 0
         self.coins = pygame.sprite.Group()
+        self.bullets = pygame.sprite.Group()
+        self.walls = pygame.sprite.Group()
 
     def mainLoop(self):
         while self.running:
@@ -49,34 +50,37 @@ class Controller:
         background = pygame.image.load('assets/Sprites/Pygamespacebackground.jpg')
         # need a background image
         # will get size of background image
-        background_size = background.get_size()
+        background_size = self.screen.get_size()
         background_rect = background.get_rect()
         background_screen = pygame.display.set_mode(background_size)
         background_screen.blit(background, background_rect)
-        my_font = pygame.font.SysFont(None, 30)
-        name_of_game = my_font.render('Space Run', False, self.white)
-        instructions = my_font.render('Hit space to jump, Hit "z" to shoot. Press any key to play.', False, self.white)
-        background_screen.blit(name_of_game, (self.width / 2, self.height / 2))
-        background_screen.blit(instructions, (self.width / 2, self.height / 4))
+        my_font = pygame.font.SysFont(None, 40)
+        title_font = pygame.font.SysFont(None, 50)
+        name_of_game = title_font.render('Space Run', False, self.white)
+        instructions = my_font.render('Hit space to jump, Hit "z" to shoot. Press space to play.', False, self.white)
+        background_screen.blit(name_of_game, ((self.width / 2) + 30, self.height / 4))
+        background_screen.blit(instructions, ((self.width / 2) - 220, self.height / 2))
         pygame.display.flip()
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
                 elif event.type == pygame.KEYDOWN:
-                    self.state = "GAME"
+                    if pygame.key == pygame.K_SPACE:
+                        self.state = "GAME"
 
     def gameOverScreen(self):
         self.hero.kill()
         background = pygame.image.load('assets/Sprites/Pygamespacebackground.jpg')
         # will get size of background image
         # if background_screen doesn't work, change to self.screen
-        background_size = background.get_size()
+        background_size = self.screen.get_size()
+        background_img = self.screen.blit(background)
         background_rect = background.get_rect()
         background_screen = pygame.display.set_mode(background_size)
         background_screen.blit(background, background_rect)
         my_font = pygame.font.SysFont(None, 30)
-        message = my_font.render('Game Over, Press any key to play again.', False, (0, 0, 0))
+        message = my_font.render('Game Over, Press space to play again.', False, (0, 0, 0))
         background_screen.blit(message, (self.width / 2, self.height / 2))
         pygame.display.flip()
         while True:
@@ -84,60 +88,60 @@ class Controller:
                 if event.type == pygame.QUIT:
                     sys.exit()
                 elif event.type == pygame.KEYDOWN:
-                    self.state = "GAME"
+                    if pygame.key == pygame.K_SPACE:
+                        self.state = "GAME"
 
     def update_platform(self):
         # needs work, still don't know how to do this
-        platform1 = platform.Platform(self.width, 50, self.width / 3, self.height / 3, (0, 0, 255))
-        self.screen.blit(platform1)
+        plat = platform.Platform(self.width, 850, self.width / 3, self.height / 3, (0, 0, 255))
+        self.screen.blit(self.screen, plat)
         pygame.display.flip()
 
     def gameLoop(self):
-        self.gameIntroScreen()
         pygame.key.set_repeat(1, 50)
         while self.state == "GAME":
             self.update_platform()
             self.sideScroller()
             self.background.fill(self.red)
-            for event in pygame.events:
+            for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
                 elif event.type == pygame.KEYDOWN:
                     if pygame.key == pygame.K_SPACE:
                         hero.Hero.jump('up')
                     elif pygame.key == pygame.K_z:
-                        if self.bullet is not None:
-                            self.bullet.kill()
-                        self.bullet = bullet.Bullet(self.hero.rect.centerx, self.hero.rect.centery, "right",
+                        b = bullet.Bullet(self.hero.rect.centerx, self.hero.rect.centery, "right",
                                                     "assets/Sprites/bullet.png")
-                        self.all_sprites.add(self.bullet)
-            if (random.randrange(4) == 0):
-                # in the loop, so will keep spawning objects, needs work though
-                self.obstacles.add(spikes.Spikes('how do we get this on the platform', ), wall.Wall('same here'), )
-                self.screen.blit(self.obstacles)
-                pygame.display.flip()
-
-            get_coin = pygame.sprite.spritecollide(self.hero, coin.Coin(), True)
-            bullet_collides = pygame.sprite.spritecollide(self.bullet, wall.Wall, False)
+                        w = wall.Wall(50, 80, 'assets/Sprites/stoneWall.png')
+                        self.bullets.add(b)
+                        self.all_sprites.add(self.bullets)
+                        self.walls.add(w)
+            get_coin = pygame.sprite.spritecollide(self.hero, self.coins, True)
+            bullet_collides = pygame.sprite.spritecollide(self.walls, self.bullets, False)
             collides = pygame.sprite.spritecollide(self.hero, self.obstacles, True)
             bullet_collide_count = 0
             if collides:
                 self.state = "LOSE"
-            elif bullet_collides:
-                bullet_collide_count += 1
-                if bullet_collide_count > 20:
-                    wall.Wall.kill()
-            elif (self.bullet is not None):
-                self.bullet.update()
-            elif get_coin:
+            while bullet_collide_count < 20:
+                if bullet_collides:
+                    bullet_collide_count += 1
+            else:
+                wall.Wall.kill()
+            if get_coin:
                 coin.Coin.kill()
                 self.score += 10
+
+                if (random.randrange(4) == 0):
+                    # in the loop, so will keep spawning objects, needs work though
+                    self.obstacles.add(spikes.Spikes(60, 80, 'assets/Sprites/spike.png'), wall.Wall(60, 80, 'assets/Sprites/stoneWall.png'), coin.Coin(60, 80, 'assets/Sprites/goldCoin1.png'))
+                    self.update_platform()
+                    pygame.display.flip()
 
             self.all_sprites.draw(self.screen)
             pygame.display.flip()
 
     def sideScroller(self):
-        background = pygame.image.load('background image')
+        background = pygame.image.load('assets/Sprites/Pygamespacebackground.jpg')
         # will get size of background image
         # may need to go inside gameLoop()
         background_size = background.get_size()
@@ -153,7 +157,7 @@ class Controller:
 
         while run:
             screen.blit(background, background_rect)
-            pygame.display.update()
+            pygame.display.flip()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     run = False
@@ -166,4 +170,5 @@ class Controller:
             elif y1 > h:
                 y1 = h
             pygame.display.flip()
-            pygame.time.Clock.tick(10)
+
+
