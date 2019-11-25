@@ -44,7 +44,7 @@
 ## Tasks and Responsibilities
 * You must outline the team member roles and who was responsible for each class/method, both individual and collaborative.
 
-### Software Lead - << Adian Ferguson  >>
+### Software Lead - << Aidan Ferguson  >>
 
 << Worked as integration specialist by... >>
 
