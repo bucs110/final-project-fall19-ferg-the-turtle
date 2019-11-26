@@ -21,9 +21,7 @@ class Hero(pygame.sprite.Sprite):
     def run(self):
         for i in itertools.cycle(self.run_sprite):
             pygame.screen.flip(i)
-
-
-
+            
     def jump(self):
-        if direction == "up": 
+        if direction == "up":
             self.rect.y -= 10
