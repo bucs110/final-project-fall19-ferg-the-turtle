@@ -112,31 +112,50 @@ class Controller:
                 if event.type == pygame.QUIT:
                     sys.exit()
                 elif event.type == pygame.KEYDOWN:
+
+                    if pygame.key == pygame.K_SPACE or pygame.K_UP:
+                        hero.Hero.jump('up')
                     if pygame.key == pygame.K_SPACE:
                             hero.Hero.jump()
                     elif pygame.key == pygame.K_z:
                         hero.Hero.run_shoot()
                         b = bullet.Bullet(self.hero.rect.centerx, self.hero.rect.centery, "right","assets/Sprites/bullet.png")
                         self.bullets.add(b)
-                        self.all_sprites.add(self.bullets)
                         self.walls.add(w)
-            get_coin = pygame.sprite.spritecollide(self.hero, self.coins, True)
-            bullet_collides = pygame.sprite.spritecollide(self.walls, self.bullets, False)
-            collides = pygame.sprite.spritecollide(self.hero, self.obstacles, True)
-            bullet_collide_count = 0
-            if collides:
-                self.state = "LOSE"
-            while bullet_collide_count < 20:
-                if bullet_collides:
-                    bullet_collide_count += 1
-            else:
-                wall.Wall.kill()
-            if get_coin:
-                coin.Coin.kill()
-                self.score += 10
+                        self.all_sprites.add(self.bullets)
+                        self.all_sprites.add(self.walls)
+
+
+                get_coin = pygame.sprite.spritecollide(self.hero, self.coins, True)
+                bullet_collides = pygame.sprite.spritecollide(self.walls, self.bullets, False)
+                collides = pygame.sprite.spritecollide(self.hero, self.obstacles, True)
+                bullet_collide_count = 0
+                if collides:
+                    self.state = "LOSE"
+                while bullet_collide_count < 20:
+                    if bullet_collides:
+                        bullet_collide_count += 1
+                else:
+                    wall.Wall.kill()
+                if get_coin:
+                    coin.Coin.kill()
+                    self.score += 10
+
+                elif(random.randrange(4) == 0):
+                    # in the loop, so will keep spawning objects, needs work though
+                    self.obstacles.add(spikes.Spikes(60, 80, 'assets/Sprites/spike.png'), wall.Wall(60, 80, 'assets/Sprites/stoneWall.png'), coin.Coin(60, 80, 'assets/Sprites/goldCoin1.png'))
+                    self.update_platform()
+                    pygame.display.flip()
+
+                self.all_sprites.draw(self.screen)
+                self.bullets.update()
+                self.screen.blit(self.background, (0, 0))
+                self.screen.blit(self.hero.image, (self.rect.x, self.rect.y))
+                pygame.display.flip()
 
             self.all_sprites.draw(self.screen)
             pygame.display.flip()
+
 
     def sideScroller(self):
         background = pygame.image.load('assets/Sprites/Pygamespacebackground.jpg')
@@ -168,3 +187,4 @@ class Controller:
             elif y1 > h:
                 y1 = h
             pygame.display.flip()
+

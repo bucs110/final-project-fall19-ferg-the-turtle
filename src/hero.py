@@ -1,14 +1,14 @@
 import pygame
 
 class Hero(pygame.sprite.Sprite):
-    def __init__(self, name, x, y, image, state):
+    def __init__(self, name, x, y, image,direction, state):
         pygame.sprite.Sprite.__init__(self)
         self.name = name
         self.image = pygame.image.load(image).convert_alpha()
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-        self.direction = "right"
+        self.direction = direction
         self.run_sprite = ["assets/Sprites/run 1.png", "assets/Sprites/run 2.png", "assets/Sprites/run 3.png",
                            "assets/Sprites/run 4.png", "assets/Sprites/run 5.png", "assets/Sprites/run 6.png"]
         self.run_index = 0
@@ -38,6 +38,9 @@ class Hero(pygame.sprite.Sprite):
         self.rect.y = y
         self.jump_index = (self.jump_index+1) % len(self.jump_index)
         if self.jump_index < 20:
+
+    def jump(self, direction):
+        if direction == "up":
             self.rect.y -= 10
         elif self.jump_index < 40:
             self.rect.y += 10

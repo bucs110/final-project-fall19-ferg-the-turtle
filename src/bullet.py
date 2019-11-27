@@ -1,5 +1,6 @@
 import pygame
 
+
 class Bullet(pygame.sprite.Sprite):
     def __init__(self, x, y, direction, img_file):
         pygame.sprite.Sprite.__init__(self)
