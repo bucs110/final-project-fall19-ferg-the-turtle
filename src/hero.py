@@ -38,9 +38,6 @@ class Hero(pygame.sprite.Sprite):
         self.rect.y = y
         self.jump_index = (self.jump_index+1) % len(self.jump_index)
         if self.jump_index < 20:
-
-    def jump(self, direction):
-        if direction == "up":
             self.rect.y -= 10
         elif self.jump_index < 40:
             self.rect.y += 10
