@@ -63,7 +63,7 @@ class Controller:
                 elif event.type == pygame.KEYDOWN:
                     if pygame.key == pygame.K_SPACE:
                         self.state = "GAME"
-                        self.mainloop()
+                        self.mainLoop()
 
     def gameOverScreen(self):
         self.hero.kill()
@@ -119,13 +119,11 @@ class Controller:
                     if pygame.key == pygame.K_SPACE:
                             hero.Hero.jump()
                     elif pygame.key == pygame.K_z:
-<<<<<<< HEAD
                         b = bullet.Bullet(self.hero.rect.centerx, self.hero.rect.centery, "right",
                                           "assets/Sprites/bullet.png")
-=======
+
                         hero.Hero.run_shoot()
                         b = bullet.Bullet(self.hero.rect.centerx, self.hero.rect.centery, "right","assets/Sprites/bullet.png")
->>>>>>> ac5ffa14ebc1e06ead387f539a226f0a47f84234
                         self.bullets.add(b)
                         self.walls.add(w)
                         self.all_sprites.add(self.bullets)
