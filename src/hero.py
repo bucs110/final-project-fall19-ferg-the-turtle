@@ -1,5 +1,4 @@
 import pygame
-import itertools
 
 
 class Hero(pygame.sprite.Sprite):
