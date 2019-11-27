@@ -50,7 +50,7 @@ class Controller:
         background_screen.blit(name_of_game, ((self.width / 3) + 50, self.height / 4))
         background_screen.blit(instructions, ((self.width / 3) - 220, self.height / 1.5))
         pygame.display.flip()
-        while selff.run:
+        while self.run:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
@@ -106,22 +106,21 @@ class Controller:
                 elif event.type == pygame.KEYDOWN:
 
                     if pygame.key == pygame.K_SPACE or pygame.K_UP:
-                        hero.Hero.jump('up')
+                        hero.Hero.jump()
                     if pygame.key == pygame.K_SPACE:
-                            hero.Hero.jump()
+                        hero.Hero.jump()
                     elif pygame.key == pygame.K_z:
-<<<<<<< HEAD
+
                         b = bullet.Bullet(self.hero.rect.centerx, self.hero.rect.centery, "right","assets/Sprites/bullet.png")
                         hero.Hero.run_shoot()
                         b = bullet.Bullet(self.hero.rect.centerx, self.hero.rect.centery, "right","assets/Sprites/bullet.png")
 
-=======
+
                         b = bullet.Bullet(self.hero.rect.centerx, self.hero.rect.centery, "right",
                                           "assets/Sprites/bullet.png")
 
                         hero.Hero.run_shoot()
                         b = bullet.Bullet(self.hero.rect.centerx, self.hero.rect.centery, "right","assets/Sprites/bullet.png")
->>>>>>> 882f3a57be52f976f8b19199725af55960102303
                         self.bullets.add(b)
                         self.walls.add(w)
                         self.all_sprites.add(self.bullets)
