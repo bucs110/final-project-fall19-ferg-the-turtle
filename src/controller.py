@@ -10,17 +10,19 @@ from src import coin
 
 
 class Controller:
-    def __init__(self, width=900, height=1200):
-        self.alive = True
-        self.screen = pygame.display.set_mode((height, width))
+    def __init__(self, width=800, height=400):
+        self.run = True
+        self.screen = pygame.display.set_mode((width, height))
         self.background = pygame.Surface(self.screen.get_size()).convert()
-        self.state = "GAME"
+        self.state = "BEGIN"
         self.height = height
         self.width = width
         self.jump = True
         self.run = True
-        self.hero = (hero.Hero("Johnny", self.width / 3, self.height / 3, "assets/Sprites/run 1.png"))
+        self.hero = (hero.Hero("Johnny", self.width / 3, self.height / 3, "assets/Sprites/run 1.png","RUN"))
         self.obstacles = pygame.sprite.Group()
+        #self.obstacles.add(coin.Coin(50,60,"assets/Sprites/goldCoin1.png"))
+        #self.obstacles.add(spikes.Spike)
         self.white = (255, 255, 255)
         self.red = (255, 0, 0)
         self.black = (0, 0, 0)
@@ -32,17 +34,17 @@ class Controller:
         self.score = pygame.time.Clock()
 
     def mainLoop(self):
-        while self.alive:
-            if self.state == "GAME":
-                self.gameLoop()
-            elif self.state == "BEGIN":
+        while self.run:
+            if self.state == "BEGIN":
                 self.gameIntroScreen()
+            elif self.state == "GAME":
+                self.gameLoop()
             elif self.state == "LOSE":
                 self.gameOverScreen()
 
     def gameIntroScreen(self):
         self.hero.kill()
-        background = pygame.image.load('assets/Sprites/Pygamespacebackground.jpg')
+        background = pygame.image.load('assets/Sprites/space.png')
         background_size = self.screen.get_size()
         background_rect = background.get_rect()
         background_screen = pygame.display.set_mode(background_size)
@@ -51,8 +53,8 @@ class Controller:
         title_font = pygame.font.SysFont(None, 50)
         name_of_game = title_font.render('Space Run', False, self.white)
         instructions = my_font.render('Hit space to jump, Hit "z" to shoot. Press space to play.', False, self.white)
-        background_screen.blit(name_of_game, ((self.width / 2) + 30, self.height / 4))
-        background_screen.blit(instructions, ((self.width / 2) - 220, self.height / 2))
+        background_screen.blit(name_of_game, ((self.width / 3) + 50, self.height / 4))
+        background_screen.blit(instructions, ((self.width / 3) - 220, self.height / 1.5))
         pygame.display.flip()
         while True:
             for event in pygame.event.get():
@@ -61,6 +63,7 @@ class Controller:
                 elif event.type == pygame.KEYDOWN:
                     if pygame.key == pygame.K_SPACE:
                         self.state = "GAME"
+                        self.mainloop()
 
     def gameOverScreen(self):
         self.hero.kill()
@@ -95,14 +98,14 @@ class Controller:
         pygame.key.set_repeat(1,50)
         while self.state == "GAME":
             while self.run:
-                hero.Hero.run()
+                hero.Hero.run(self.hero)
                 if (random.randrange(4) == 0):
                     self.obstacles.add(spikes.Spikes(60, 80, 'assets/Sprites/spike.png'),
                     wall.Wall(60, 80, 'assets/Sprites/stoneWall.png'), coin.Coin(60, 80,'assets/Sprites/goldCoin1.png'))
                     self.update_platform()
                     pygame.display.flip()
-            self.update_platform()
-            self.sideScroller()
+            #self.update_platform()
+            #self.sideScroller()
 
             self.background.fill(self.red)
             for event in pygame.event.get():
@@ -110,9 +113,9 @@ class Controller:
                     sys.exit()
                 elif event.type == pygame.KEYDOWN:
                     if pygame.key == pygame.K_SPACE:
-                        while self.jump:
                             hero.Hero.jump()
                     elif pygame.key == pygame.K_z:
+                        hero.Hero.run_shoot()
                         b = bullet.Bullet(self.hero.rect.centerx, self.hero.rect.centery, "right","assets/Sprites/bullet.png")
                         self.bullets.add(b)
                         self.all_sprites.add(self.bullets)
