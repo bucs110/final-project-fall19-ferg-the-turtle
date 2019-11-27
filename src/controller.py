@@ -21,16 +21,10 @@ class Controller:
         self.run = True
         self.hero = hero.Hero("Johnny", self.width / 3, self.height / 3, "assets/Sprites/run 1.png","right","RUN")
         self.obstacles = pygame.sprite.Group()
-        #self.obstacles.add(coin.Coin(50,60,"assets/Sprites/goldCoin1.png"))
-        #self.obstacles.add(spikes.Spike)
         self.white = (255, 255, 255)
         self.red = (255, 0, 0)
         self.black = (0, 0, 0)
         self.all_sprites = pygame.sprite.Group((self.hero,) + tuple(self.obstacles))
-        self.score = 0
-        self.coins = pygame.sprite.Group()
-        self.bullets = pygame.sprite.Group()
-        self.walls = pygame.sprite.Group()
         self.score = pygame.time.Clock()
 
     def mainLoop(self):
@@ -56,14 +50,14 @@ class Controller:
         background_screen.blit(name_of_game, ((self.width / 3) + 50, self.height / 4))
         background_screen.blit(instructions, ((self.width / 3) - 220, self.height / 1.5))
         pygame.display.flip()
-        while self.run:
+        while selff.run:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
                 elif event.type == pygame.KEYDOWN:
                     if pygame.key == pygame.K_SPACE:
                         self.state = "GAME"
-                        self.mainloop()
+                        self.mainLoop()
 
     def gameOverScreen(self):
         self.hero.kill()
@@ -79,13 +73,10 @@ class Controller:
         message = my_font.render('Game Over, Press space to play again.', False, (0, 0, 0))
         background_screen.blit(message, (self.width / 2, self.height / 2))
         pygame.display.flip()
-        while True:
+        while self.state == "LOSE":
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
-                elif event.type == pygame.KEYDOWN:
-                    if pygame.key == pygame.K_SPACE:
-                        self.state = "GAME"
 
     def update_platform(self):
         # needs work, still don't know how to do this
@@ -119,13 +110,10 @@ class Controller:
                     if pygame.key == pygame.K_SPACE:
                             hero.Hero.jump()
                     elif pygame.key == pygame.K_z:
-<<<<<<< HEAD
-                        b = bullet.Bullet(self.hero.rect.centerx, self.hero.rect.centery, "right",
-                                          "assets/Sprites/bullet.png")
-=======
+                        b = bullet.Bullet(self.hero.rect.centerx, self.hero.rect.centery, "right","assets/Sprites/bullet.png")
                         hero.Hero.run_shoot()
                         b = bullet.Bullet(self.hero.rect.centerx, self.hero.rect.centery, "right","assets/Sprites/bullet.png")
->>>>>>> ac5ffa14ebc1e06ead387f539a226f0a47f84234
+
                         self.bullets.add(b)
                         self.walls.add(w)
                         self.all_sprites.add(self.bullets)
