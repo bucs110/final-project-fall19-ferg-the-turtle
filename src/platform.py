@@ -1,7 +1,6 @@
 import pygame
 
 
-
 class Platform(pygame.sprite.Sprite):
     def __init__(self, width, height, pos_x, pos_y, color):
         self.width, self.height = width, height
