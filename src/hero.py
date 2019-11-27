@@ -1,5 +1,6 @@
 import pygame
 
+
 class Hero(pygame.sprite.Sprite):
     def __init__(self, name, x, y, image,direction, state):
         pygame.sprite.Sprite.__init__(self)
