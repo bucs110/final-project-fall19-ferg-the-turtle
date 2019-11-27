@@ -19,7 +19,7 @@ class Controller:
         self.width = width
         self.jump = True
         self.run = True
-        self.hero = (hero.Hero("Johnny", self.width / 3, self.height / 3, "assets/Sprites/run 1.png","RUN"))
+        self.hero = hero.Hero("Johnny", self.width / 3, self.height / 3, "assets/Sprites/run 1.png","right","RUN")
         self.obstacles = pygame.sprite.Group()
         #self.obstacles.add(coin.Coin(50,60,"assets/Sprites/goldCoin1.png"))
         #self.obstacles.add(spikes.Spike)
@@ -56,7 +56,7 @@ class Controller:
         background_screen.blit(name_of_game, ((self.width / 3) + 50, self.height / 4))
         background_screen.blit(instructions, ((self.width / 3) - 220, self.height / 1.5))
         pygame.display.flip()
-        while True:
+        while self.run:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
@@ -187,4 +187,3 @@ class Controller:
             elif y1 > h:
                 y1 = h
             pygame.display.flip()
-
