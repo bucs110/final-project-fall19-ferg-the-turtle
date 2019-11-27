@@ -110,10 +110,18 @@ class Controller:
                     if pygame.key == pygame.K_SPACE:
                             hero.Hero.jump()
                     elif pygame.key == pygame.K_z:
+<<<<<<< HEAD
                         b = bullet.Bullet(self.hero.rect.centerx, self.hero.rect.centery, "right","assets/Sprites/bullet.png")
                         hero.Hero.run_shoot()
                         b = bullet.Bullet(self.hero.rect.centerx, self.hero.rect.centery, "right","assets/Sprites/bullet.png")
 
+=======
+                        b = bullet.Bullet(self.hero.rect.centerx, self.hero.rect.centery, "right",
+                                          "assets/Sprites/bullet.png")
+
+                        hero.Hero.run_shoot()
+                        b = bullet.Bullet(self.hero.rect.centerx, self.hero.rect.centery, "right","assets/Sprites/bullet.png")
+>>>>>>> 882f3a57be52f976f8b19199725af55960102303
                         self.bullets.add(b)
                         self.walls.add(w)
                         self.all_sprites.add(self.bullets)
