@@ -11,33 +11,28 @@ from src import coin
 
 class Controller:
     def __init__(self, width=900, height=1200):
-        self.running = True
+        self.alive = True
         self.screen = pygame.display.set_mode((height, width))
         self.background = pygame.Surface(self.screen.get_size()).convert()
         self.state = "GAME"
         self.height = height
         self.width = width
-        self.run_sprite = ["assets/Sprites/run 1.png", "assets/Sprites/run 2.png", "assets/Sprites/run 3.png",
-                           "assets/Sprites/run 4.png", "assets/Sprites/run 5.png", "assets/Sprites/run 6.png"]
-        self.jump_sprite = ["assets/Sprites/jump1.png", "assets/Sprites/jump2.png"]
-        self.run_shoot_sprite = ["assets/Sprites/runshoot1.png", "assets/Sprites/runshoot2.png",
-                                 "assets/Sprites/runshoot3.png", "assets/Sprites/runshoot4.png",
-                                 "assets/Sprites/runshoot5.png", "assets/Sprites/runshoot6.png"]
-
+        self.jump = True
+        self.run = True
         self.hero = (hero.Hero("Johnny", self.width / 3, self.height / 3, "assets/Sprites/run 1.png"))
         self.obstacles = pygame.sprite.Group()
         self.white = (255, 255, 255)
         self.red = (255, 0, 0)
         self.black = (0, 0, 0)
         self.all_sprites = pygame.sprite.Group((self.hero,) + tuple(self.obstacles))
-        self.platforms = pygame.sprite.Group()
         self.score = 0
         self.coins = pygame.sprite.Group()
         self.bullets = pygame.sprite.Group()
         self.walls = pygame.sprite.Group()
+        self.score = pygame.time.Clock()
 
     def mainLoop(self):
-        while self.running:
+        while self.alive:
             if self.state == "GAME":
                 self.gameLoop()
             elif self.state == "BEGIN":
@@ -48,8 +43,6 @@ class Controller:
     def gameIntroScreen(self):
         self.hero.kill()
         background = pygame.image.load('assets/Sprites/Pygamespacebackground.jpg')
-        # need a background image
-        # will get size of background image
         background_size = self.screen.get_size()
         background_rect = background.get_rect()
         background_screen = pygame.display.set_mode(background_size)
@@ -98,24 +91,37 @@ class Controller:
         pygame.display.flip()
 
     def gameLoop(self):
+        pygame.time.delay(100)
+        pygame.key.set_repeat(1,50)
         while self.state == "GAME":
+            while self.run:
+                hero.Hero.run()
+                if (random.randrange(4) == 0):
+                    self.obstacles.add(spikes.Spikes(60, 80, 'assets/Sprites/spike.png'),
+                    wall.Wall(60, 80, 'assets/Sprites/stoneWall.png'), coin.Coin(60, 80,'assets/Sprites/goldCoin1.png'))
+                    self.update_platform()
+                    pygame.display.flip()
             self.update_platform()
             self.sideScroller()
+
             self.background.fill(self.red)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
                 elif event.type == pygame.KEYDOWN:
+
                     if pygame.key == pygame.K_SPACE or pygame.K_UP:
                         hero.Hero.jump('up')
+                    if pygame.key == pygame.K_SPACE:
+                        while self.jump:
+                            hero.Hero.jump()
                     elif pygame.key == pygame.K_z:
-                        b = bullet.Bullet(self.hero.rect.centerx, self.hero.rect.centery, "right",
-                                                    "assets/Sprites/bullet.png")
-                        w = wall.Wall(50, 80, 'assets/Sprites/stoneWall.png')
+                        b = bullet.Bullet(self.hero.rect.centerx, self.hero.rect.centery, "right","assets/Sprites/bullet.png")
                         self.bullets.add(b)
                         self.walls.add(w)
                         self.all_sprites.add(self.bullets)
                         self.all_sprites.add(self.walls)
+
 
                 get_coin = pygame.sprite.spritecollide(self.hero, self.coins, True)
                 bullet_collides = pygame.sprite.spritecollide(self.walls, self.bullets, False)
@@ -143,6 +149,10 @@ class Controller:
                 self.screen.blit(self.background, (0, 0))
                 self.screen.blit(self.hero.image, (self.rect.x, self.rect.y))
                 pygame.display.flip()
+
+            self.all_sprites.draw(self.screen)
+            pygame.display.flip()
+
 
     def sideScroller(self):
         background = pygame.image.load('assets/Sprites/Pygamespacebackground.jpg')
