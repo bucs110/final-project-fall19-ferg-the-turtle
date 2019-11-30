@@ -56,7 +56,7 @@ class Controller:
                 if event.type == pygame.QUIT:
                     sys.exit()
                 elif event.type == pygame.KEYDOWN:
-                    if pygame.key == pygame.K_SPACE:
+                    if event.key == pygame.K_SPACE:
                         self.state = "GAME"
                         self.mainLoop()
 
@@ -78,6 +78,10 @@ class Controller:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        self.state = 'GAME'
+                        self.mainLoop()
 
     def update_platform(self):
         # needs work, still don't know how to do this
@@ -97,7 +101,6 @@ class Controller:
                                        coin.Coin(60, 80, 'assets/Sprites/goldCoin1.png'))
                     self.update_platform()
                     pygame.display.flip()
-            # self.update_platform()
             # self.sideScroller()
 
             self.background.fill(self.red)
@@ -162,14 +165,13 @@ class Controller:
 
         x1 = 0
         y1 = -h
-        run = True
 
-        while run:
+        while self.run:
             screen.blit(background, background_rect)
             pygame.display.flip()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    run = False
+                    self.run = False
             y1 += 5
             y += 5
             screen.blit(background, (x, y))
