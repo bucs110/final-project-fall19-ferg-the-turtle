@@ -28,6 +28,7 @@ class Hero(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+        # where im getting the error
         self.run_index = (self.run_index+1) % len(self.run_index)
 
     def jump(self):
@@ -37,6 +38,7 @@ class Hero(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+        # where im getting the error
         self.jump_index = (self.jump_index+1) % len(self.jump_index)
         if self.jump_index < 20:
             self.rect.y -= 10
@@ -52,6 +54,7 @@ class Hero(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+        # where im getting the error
         self.run_shoot_index = (self.run_shoot_index+1) % len(self.run_shoot_index)
 
 
