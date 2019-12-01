@@ -22,10 +22,6 @@ class Controller:
         self.hero = hero.Hero("Johnny", self.width / 3, self.height / 3, "assets/Sprites/run 1.png", "right", "RUN")
         self.obstacles = pygame.sprite.Group()  # add the obstacles into the group here
         self.hero = hero.Hero("Johnny", self.width / 3, self.height / 3, "assets/Sprites/run 1.png", "right", "RUN")
-        self.wall = wall.Wall(self.width / 6, self.height / 6, 'assets/Sprites/stoneWall.png')
-        self.spike = spikes.Spikes(self.width / 6, self.height / 6, 'assets/Sprites/spike.png')
-        self.coin = coin.Coin(self.width / 6, self.height / 6, 'assets/Sprites/goldCoin1.png')
-        self.obstacles = pygame.sprite.Group()
         self.white = (255, 255, 255)
         self.red = (255, 0, 0)
         self.black = (0, 0, 0)
@@ -100,9 +96,9 @@ class Controller:
         while self.state == "GAME":
             hero.Hero.run(self.hero)
             if (random.randrange(4) == 0):
-                self.obstacles.add(spikes.Spikes(self.spike.rect.x, self.spike.rect.y, 'assets/Sprites/spike.png'),
-                                   wall.Wall(self.wall.rect.x, self.wall.rect.y, 'assets/Sprites/stoneWall.png'),
-                                   coin.Coin(self.coin.rect.x, self.coin.rect.y, 'assets/Sprites/goldCoin1.png'))
+                self.obstacles.add(spikes.Spikes(self.rect.x, self.rect.y, 'assets/Sprites/spike.png'),
+                                   wall.Wall(self.rect.x, self.rect.y, 'assets/Sprites/stoneWall.png'),
+                                   coin.Coin(self.rect.x, self.rect.y, coin.Coin.spin()))
                 #  self.update_platform()
                 pygame.display.flip()
             # self.update_platform()
@@ -120,8 +116,8 @@ class Controller:
                                           "assets/Sprites/bullet.png")
                         self.bullets.add(b)
                         self.bullets.update()
-                get_coin = pygame.sprite.spritecollide(self.hero, self.coin, True)
-                bullet_collides = pygame.sprite.spritecollide(self.wall, self.bullets, False)
+                get_coin = pygame.sprite.spritecollide(self.hero, coin.Coin(self.rect.x, self.rect.y, coin.Coin.spin()), True)
+                bullet_collides = pygame.sprite.spritecollide(wall.Wall(self.rect.x, self.rect.y, 'assets/Sprites/stoneWall.png'), self.bullets, False)
                 collides = pygame.sprite.spritecollide(self.hero, self.obstacles, True)
                 bullet_collide_count = 0
                 if collides:
@@ -130,9 +126,9 @@ class Controller:
                     if bullet_collides:
                         bullet_collide_count += 1
                 else:
-                    self.wall.kill()
+                    wall.Wall.kill()
                 if get_coin:
-                    self.coin.kill()
+                    coin.Coin.kill()
                     self.score += 10
 
             self.update_platform()
@@ -143,7 +139,7 @@ class Controller:
             self.all_sprites.draw(self.screen)
             pygame.display.flip()
 
-    def sideScroller(self):
+    def side_Scroller(self):
         background = pygame.image.load('assets/Sprites/Pygamespacebackground.jpg')
         # will get size of background image
         # may need to go inside gameLoop()
