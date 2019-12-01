@@ -11,7 +11,6 @@ from src import coin
 
 class Controller:
     def __init__(self, width=800, height=400):
-        self.run = True
         self.screen = pygame.display.set_mode((width, height))
         self.background = pygame.Surface(self.screen.get_size()).convert()
         self.state = "BEGIN"
@@ -26,8 +25,10 @@ class Controller:
         self.red = (255, 0, 0)
         self.black = (0, 0, 0)
         self.bullets = pygame.sprite.Group()
+        self.platforms = pygame.sprite.Group()
         self.all_sprites = pygame.sprite.Group((self.hero,) + tuple(self.obstacles))
         self.score = pygame.time.Clock()
+
 
     def mainLoop(self):
         while self.run:
@@ -84,25 +85,23 @@ class Controller:
                         self.state = 'GAME'
                         self.mainLoop()
 
-    def update_platform(self):
-        # needs work, still don't know how to do this
-        plat = platform.Platform(self.width, 850, self.width / 3, self.height / 3, (0, 0, 255))
-        self.screen.blit(self.screen, plat)
-        pygame.display.flip()
+
 
     def gameLoop(self):
         pygame.time.delay(100)
         pygame.key.set_repeat(1, 50)
         while self.state == "GAME":
             hero.Hero.run(self.hero)
-            if (random.randrange(4) == 0):
-                self.obstacles.add(spikes.Spikes(self.rect.x, self.rect.y, 'assets/Sprites/spike.png'),
+            plat = platform.Platform(self.width, 240, 0, self.height - 240, (0, 0, 255))
+            self.platforms.add(plat)
+            if random.randrange(4) == 0:
+                self.all_sprites.add(self.platforms)
+                self.obstacles.add(spikes.Spikes(self.width / 3, self.height , 'assets/Sprites/spike.png'),
                                    wall.Wall(self.rect.x, self.rect.y, 'assets/Sprites/stoneWall.png'),
                                    coin.Coin(self.rect.x, self.rect.y, coin.Coin.spin()))
-                #  self.update_platform()
+                self.all_sprites.blit()
                 pygame.display.flip()
-            # self.update_platform()
-            # self.sideScroller()
+                self.side_Scroller()
 
             self.background.fill(self.red)
             for event in pygame.event.get():
@@ -131,7 +130,6 @@ class Controller:
                     coin.Coin.kill()
                     self.score += 10
 
-            self.update_platform()
             self.all_sprites.draw(self.screen)
             self.bullets.update()
             self.screen.blit(self.background, (0, 0))
