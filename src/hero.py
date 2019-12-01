@@ -29,17 +29,17 @@ class Hero(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
         # where im getting the error
-        self.run_index = (self.run_index+1) % len(self.run_index)
+        self.run_index = (self.run_index+1) % len(self.run_sprite)
 
     def jump(self):
         x = self.rect.x
         y = self.rect.y
-        self.image = pygame.image.load(self.run_sprite[self.jump_index]).convert_alpha()
+        self.image = pygame.image.load(self.jump_sprite[self.jump_index]).convert_alpha()
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
         # where im getting the error
-        self.jump_index = (self.jump_index+1) % len(self.jump_index)
+        self.jump_index = (self.jump_index+1) % len(self.jump_sprite)
         if self.jump_index < 20:
             self.rect.y -= 10
         elif self.jump_index < 40:
@@ -50,15 +50,15 @@ class Hero(pygame.sprite.Sprite):
     def run_shoot(self):
         x = self.rect.x
         y = self.rect.y
-        self.image = pygame.image.load(self.run_sprite[self.run_index]).convert_alpha()
+        self.image = pygame.image.load(self.run_shoot_sprite[self.run_shoot_index]).convert_alpha()
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
         # where im getting the error
-        self.run_shoot_index = (self.run_shoot_index+1) % len(self.run_shoot_index)
+        self.run_shoot_index = (self.run_shoot_index+1) % len(self.run_shoot_sprite)
 
 
-    def update(self):
+    def update(self,state):
         if self.state == "RUN":
             self.run()
         elif self.state == "JUMP":

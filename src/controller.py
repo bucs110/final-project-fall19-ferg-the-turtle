@@ -19,9 +19,8 @@ class Controller:
         self.width = width
         self.jump = True
         self.run = True
-        self.hero = hero.Hero("Johnny", self.width / 3, self.height / 3, "assets/Sprites/run 1.png", "right", "RUN")
+        self.hero = hero.Hero("Johnny", self.width / 3, self.height / 3, "assets/Sprites/run 1.png","right","RUN")
         self.obstacles = pygame.sprite.Group()
-        self.bullets = pygame.sprite.Group()
         self.white = (255, 255, 255)
         self.red = (255, 0, 0)
         self.black = (0, 0, 0)
@@ -51,12 +50,12 @@ class Controller:
         background_screen.blit(name_of_game, ((self.width / 3) + 50, self.height / 4))
         background_screen.blit(instructions, ((self.width / 3) - 220, self.height / 1.5))
         pygame.display.flip()
-        while self.run:
+        while selff.run:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
                 elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_SPACE:
+                    if pygame.key == pygame.K_SPACE:
                         self.state = "GAME"
                         self.mainLoop()
 
@@ -78,10 +77,6 @@ class Controller:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
-                elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_SPACE:
-                        self.state = 'GAME'
-                        self.mainLoop()
 
     def update_platform(self):
         # needs work, still don't know how to do this
@@ -101,7 +96,8 @@ class Controller:
                                        coin.Coin(60, 80, 'assets/Sprites/goldCoin1.png'))
                     self.update_platform()
                     pygame.display.flip()
-            # self.sideScroller()
+            #self.update_platform()
+            #self.sideScroller()
 
             self.background.fill(self.red)
             for event in pygame.event.get():
@@ -110,23 +106,18 @@ class Controller:
                 elif event.type == pygame.KEYDOWN:
 
                     if pygame.key == pygame.K_SPACE or pygame.K_UP:
-                        hero.Hero.jump()
+                        hero.Hero.jump(self.hero,"UP")
                     if pygame.key == pygame.K_SPACE:
-                        hero.Hero.jump()
+                            hero.Hero.jump(self.hero,)
                     elif pygame.key == pygame.K_z:
-                        hero.Hero.run_shoot()
-                        b = bullet.Bullet(self.hero.rect.centerx, self.hero.rect.centery, "right",
-                                          "assets/Sprites/bullet.png")
-                        self.bullets.add(b)
-                        self.all_sprites.add(self.bullets)
-
-                get_coin = pygame.sprite.spritecollide(self.hero, coin.Coin(self.rect.x, self.rect.y), True)
-                bullet_collides = pygame.sprite.spritecollide(wall.Wall(self.rect.x, self.rect.y, 'assets/Sprites/stoneWall.png'), self.bullets, False)
+                        b = bullet.Bullet(self.hero.rect.centerx, self.hero.rect.centery, "right","assets/Sprites/bullet.png")
+                get_coin = pygame.sprite.spritecollide(self.hero, self.coins, True)
+                bullet_collides = pygame.sprite.spritecollide(self.walls, self.bullets, False)
                 collides = pygame.sprite.spritecollide(self.hero, self.obstacles, True)
                 bullet_collide_count = 0
                 if collides:
                     self.state = "LOSE"
-                while bullet_collide_count < 20:
+                while bullet_collide_count < 2:
                     if bullet_collides:
                         bullet_collide_count += 1
                 else:
@@ -165,13 +156,14 @@ class Controller:
 
         x1 = 0
         y1 = -h
+        run = True
 
-        while self.run:
+        while run:
             screen.blit(background, background_rect)
             pygame.display.flip()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    self.run = False
+                    run = False
             y1 += 5
             y += 5
             screen.blit(background, (x, y))

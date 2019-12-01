@@ -23,7 +23,7 @@ class Coin(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
         # where im getting the error
-        self.spin_index = (self.spin_index+1) % len(self.spin_index)
+        self.spin_index = (self.spin_index+1) % len(self.spin_sprite)
     def update(self):
         if self.state == "SPIN":
             self.spin()
