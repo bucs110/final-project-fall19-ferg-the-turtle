@@ -19,7 +19,8 @@ class Controller:
         self.width = width
         self.jump = True
         self.run = True
-        self.hero = hero.Hero("Johnny", self.width / 3, self.height / 3, "assets/Sprites/run 1.png","right","RUN")
+        self.hero = hero.Hero("Johnny", self.width / 3, self.height / 3, "assets/Sprites/run 1.png", "right", "RUN")
+        self.wall = wall.Wall(self.rect.x, self.rect.y, 'assets/Sprites/stoneWall.png')
         self.obstacles = pygame.sprite.Group()
         self.white = (255, 255, 255)
         self.red = (255, 0, 0)
@@ -135,9 +136,9 @@ class Controller:
 
                 elif (random.randrange(4) == 0):
                     # in the loop, so will keep spawning objects, needs work though
-                    self.obstacles.add(spikes.Spikes(60, 80, 'assets/Sprites/spike.png'),
-                                       wall.Wall(60, 80, 'assets/Sprites/stoneWall.png'),
-                                       coin.Coin(60, 80, 'assets/Sprites/goldCoin1.png'))
+                    self.obstacles.add(spikes.Spikes(self.rect.x, self.rect.y, 'assets/Sprites/spike.png'),
+                                       wall.Wall(self.rect.x, self.rect.y, 'assets/Sprites/stoneWall.png'),
+                                       coin.Coin(self.rect.x, self.rect.y))
                     self.update_platform()
                     pygame.display.flip()
 
