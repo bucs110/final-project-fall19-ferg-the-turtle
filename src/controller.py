@@ -24,6 +24,7 @@ class Controller:
         self.white = (255, 255, 255)
         self.red = (255, 0, 0)
         self.black = (0, 0, 0)
+        self.bullets = pygame.sprite.Group()
         self.all_sprites = pygame.sprite.Group((self.hero,) + tuple(self.obstacles))
         self.score = pygame.time.Clock()
 
@@ -50,12 +51,12 @@ class Controller:
         background_screen.blit(name_of_game, ((self.width / 3) + 50, self.height / 4))
         background_screen.blit(instructions, ((self.width / 3) - 220, self.height / 1.5))
         pygame.display.flip()
-        while selff.run:
+        while self.run:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
                 elif event.type == pygame.KEYDOWN:
-                    if pygame.key == pygame.K_SPACE:
+                    if event.key == pygame.K_SPACE:
                         self.state = "GAME"
                         self.mainLoop()
 
@@ -77,6 +78,10 @@ class Controller:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        self.state = 'GAME'
+                        self.mainLoop()
 
     def update_platform(self):
         # needs work, still don't know how to do this
@@ -91,9 +96,9 @@ class Controller:
             while self.run:
                 hero.Hero.run(self.hero)
                 if (random.randrange(4) == 0):
-                    self.obstacles.add(spikes.Spikes(60, 80, 'assets/Sprites/spike.png'),
-                                       wall.Wall(60, 80, 'assets/Sprites/stoneWall.png'),
-                                       coin.Coin(60, 80, 'assets/Sprites/goldCoin1.png'))
+                    self.obstacles.add(spikes.Spikes(self.rect.x, self.rect.y, 'assets/Sprites/spike.png'),
+                                       wall.Wall(self.rect.x, self.rect.y, 'assets/Sprites/stoneWall.png'),
+                                       coin.Coin(self.rect.x, self.rect.y))
                     self.update_platform()
                     pygame.display.flip()
             #self.update_platform()
@@ -106,13 +111,15 @@ class Controller:
                 elif event.type == pygame.KEYDOWN:
 
                     if pygame.key == pygame.K_SPACE or pygame.K_UP:
-                        hero.Hero.jump(self.hero,"UP")
+                        hero.Hero.jump(self.hero)
                     if pygame.key == pygame.K_SPACE:
-                            hero.Hero.jump(self.hero,)
+                        hero.Hero.jump(self.hero,)
                     elif pygame.key == pygame.K_z:
-                        b = bullet.Bullet(self.hero.rect.centerx, self.hero.rect.centery, "right","assets/Sprites/bullet.png")
-                get_coin = pygame.sprite.spritecollide(self.hero, self.coins, True)
-                bullet_collides = pygame.sprite.spritecollide(self.walls, self.bullets, False)
+                        b = bullet.Bullet(self.hero.rect.centerx, self.hero.rect.centery, "right", "assets/Sprites/bullet.png")
+                        self.bullets.add(b)
+                        self.bullets.update()
+                get_coin = pygame.sprite.spritecollide(self.hero, coin.Coin(self.rect.x, self.rect.y), True)
+                bullet_collides = pygame.sprite.spritecollide(wall.Wall(self.rect.x, self.rect.y, 'assets/Sprites/stoneWall.png'), self.bullets, False)
                 collides = pygame.sprite.spritecollide(self.hero, self.obstacles, True)
                 bullet_collide_count = 0
                 if collides:

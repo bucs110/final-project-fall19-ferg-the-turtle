@@ -2,7 +2,7 @@ import pygame
 
 
 class Coin(pygame.sprite.Sprite):
-    def __init__(self, x, y, img_file):
+    def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
         self.run_sprite = ["assets/Sprites/run 1.png", "assets/Sprites/run 2.png", "assets/Sprites/run 3.png",
                            "assets/Sprites/run 4.png", "assets/Sprites/run 5.png", "assets/Sprites/run 6.png"]
