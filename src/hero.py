@@ -57,16 +57,10 @@ class Hero(pygame.sprite.Sprite):
         # where im getting the error
         self.run_shoot_index = (self.run_shoot_index+1) % len(self.run_shoot_sprite)
 
-
-<<<<<<< HEAD
-    def update(self,state):
-        self.state = state
-=======
     def update(self, state):
->>>>>>> 9f73a45c41bfc1a3b823cd9476a84122fccbed54
-        if self.state == "RUN":
+        if state == "RUN":
             self.run()
-        elif self.state == "JUMP":
+        elif state == "JUMP":
             self.jump()
-        elif self.state == "RUNSHOOT":
+        elif state == "RUNSHOOT":
             self.run_shoot()

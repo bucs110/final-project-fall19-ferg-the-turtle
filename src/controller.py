@@ -112,12 +112,9 @@ class Controller:
                 if event.type == pygame.QUIT:
                     sys.exit()
                 elif event.type == pygame.KEYDOWN:
-
-                    if pygame.key == pygame.K_SPACE or pygame.K_UP:
-                            #need to call update
-                    if pygame.key == pygame.K_SPACE:
-                            #need to call update 
-                    elif pygame.key == pygame.K_z:
+                    if event.key == pygame.K_SPACE or pygame.K_UP:
+                        hero.Hero.update("JUMP")
+                    elif event.key == pygame.K_z:
                         b = bullet.Bullet(self.hero.rect.centerx, self.hero.rect.centery, "right", "assets/Sprites/bullet.png")
                         self.bullets.add(b)
                         self.bullets.update()
