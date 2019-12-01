@@ -20,7 +20,7 @@ class Controller:
         self.jump = True
         self.run = True
         self.hero = hero.Hero("Johnny", self.width / 3, self.height / 3, "assets/Sprites/run 1.png","right","RUN")
-        self.obstacles = pygame.sprite.Group()
+        self.obstacles = pygame.sprite.Group() #add the obstacles into the group here
         self.white = (255, 255, 255)
         self.red = (255, 0, 0)
         self.black = (0, 0, 0)
@@ -106,7 +106,7 @@ class Controller:
                 elif event.type == pygame.KEYDOWN:
 
                     if pygame.key == pygame.K_SPACE or pygame.K_UP:
-                        hero.Hero.jump(self.hero,"UP")
+                        hero.Hero.jump(self.hero,"UP") # when you call the hero just create 
                     if pygame.key == pygame.K_SPACE:
                             hero.Hero.jump(self.hero,)
                     elif pygame.key == pygame.K_z:

@@ -59,6 +59,7 @@ class Hero(pygame.sprite.Sprite):
 
 
     def update(self,state):
+        self.state = state
         if self.state == "RUN":
             self.run()
         elif self.state == "JUMP":
