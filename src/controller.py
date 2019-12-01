@@ -19,10 +19,12 @@ class Controller:
         self.width = width
         self.jump = True
         self.run = True
-        self.hero = hero.Hero("Johnny", self.width / 3, self.height / 3, "assets/Sprites/run 1.png","right","RUN")
-        self.obstacles = pygame.sprite.Group() #add the obstacles into the group here
         self.hero = hero.Hero("Johnny", self.width / 3, self.height / 3, "assets/Sprites/run 1.png", "right", "RUN")
-        self.wall = wall.Wall(self.rect.x, self.rect.y, 'assets/Sprites/stoneWall.png')
+        self.obstacles = pygame.sprite.Group()  # add the obstacles into the group here
+        self.hero = hero.Hero("Johnny", self.width / 3, self.height / 3, "assets/Sprites/run 1.png", "right", "RUN")
+        self.wall = wall.Wall(self.width / 6, self.height / 6, 'assets/Sprites/stoneWall.png')
+        self.spike = spikes.Spikes(self.width / 6, self.height / 6, 'assets/Sprites/spike.png')
+        self.coin = coin.Coin(self.width / 6, self.height / 6, 'assets/Sprites/goldCoin1.png')
         self.obstacles = pygame.sprite.Group()
         self.white = (255, 255, 255)
         self.red = (255, 0, 0)
@@ -96,16 +98,15 @@ class Controller:
         pygame.time.delay(100)
         pygame.key.set_repeat(1, 50)
         while self.state == "GAME":
-            while self.run:
-                hero.Hero.run(self.hero)
-                if (random.randrange(4) == 0):
-                    self.obstacles.add(spikes.Spikes(self.rect.x, self.rect.y, 'assets/Sprites/spike.png'),
-                                       wall.Wall(self.rect.x, self.rect.y, 'assets/Sprites/stoneWall.png'),
-                                       coin.Coin(self.rect.x, self.rect.y))
-                    self.update_platform()
-                    pygame.display.flip()
-            #self.update_platform()
-            #self.sideScroller()
+            hero.Hero.run(self.hero)
+            if (random.randrange(4) == 0):
+                self.obstacles.add(spikes.Spikes(self.spike.rect.x, self.spike.rect.y, 'assets/Sprites/spike.png'),
+                                   wall.Wall(self.wall.rect.x, self.wall.rect.y, 'assets/Sprites/stoneWall.png'),
+                                   coin.Coin(self.coin.rect.x, self.coin.rect.y, 'assets/Sprites/goldCoin1.png'))
+                #  self.update_platform()
+                pygame.display.flip()
+            # self.update_platform()
+            # self.sideScroller()
 
             self.background.fill(self.red)
             for event in pygame.event.get():
@@ -115,11 +116,12 @@ class Controller:
                     if event.key == pygame.K_SPACE or pygame.K_UP:
                         hero.Hero.update("JUMP")
                     elif event.key == pygame.K_z:
-                        b = bullet.Bullet(self.hero.rect.centerx, self.hero.rect.centery, "right", "assets/Sprites/bullet.png")
+                        b = bullet.Bullet(self.hero.rect.centerx, self.hero.rect.centery, "right",
+                                          "assets/Sprites/bullet.png")
                         self.bullets.add(b)
                         self.bullets.update()
-                get_coin = pygame.sprite.spritecollide(self.hero, coin.Coin(self.rect.x, self.rect.y), True)
-                bullet_collides = pygame.sprite.spritecollide(wall.Wall(self.rect.x, self.rect.y, 'assets/Sprites/stoneWall.png'), self.bullets, False)
+                get_coin = pygame.sprite.spritecollide(self.hero, self.coin, True)
+                bullet_collides = pygame.sprite.spritecollide(self.wall, self.bullets, False)
                 collides = pygame.sprite.spritecollide(self.hero, self.obstacles, True)
                 bullet_collide_count = 0
                 if collides:
@@ -128,25 +130,16 @@ class Controller:
                     if bullet_collides:
                         bullet_collide_count += 1
                 else:
-                    wall.Wall.kill()
+                    self.wall.kill()
                 if get_coin:
-                    coin.Coin.kill()
+                    self.coin.kill()
                     self.score += 10
 
-                elif (random.randrange(4) == 0):
-                    # in the loop, so will keep spawning objects, needs work though
-                    self.obstacles.add(spikes.Spikes(self.rect.x, self.rect.y, 'assets/Sprites/spike.png'),
-                                       wall.Wall(self.rect.x, self.rect.y, 'assets/Sprites/stoneWall.png'),
-                                       coin.Coin(self.rect.x, self.rect.y))
-                    self.update_platform()
-                    pygame.display.flip()
-
-                self.all_sprites.draw(self.screen)
-                self.bullets.update()
-                self.screen.blit(self.background, (0, 0))
-                self.screen.blit(self.hero.image, (self.rect.x, self.rect.y))
-                pygame.display.flip()
-
+            self.update_platform()
+            self.all_sprites.draw(self.screen)
+            self.bullets.update()
+            self.screen.blit(self.background, (0, 0))
+            self.screen.blit(self.hero.image, (self.hero.rect.x, self.hero.rect.y))
             self.all_sprites.draw(self.screen)
             pygame.display.flip()
 
