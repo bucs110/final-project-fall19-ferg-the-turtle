@@ -15,6 +15,11 @@ class Coin(pygame.sprite.Sprite):
         "assets/Sprites/goldCoin9.png"]
         self.spin_index = 0
     def spin(self):
+        '''
+        this method spins the coin
+        :param = None
+        :returns = None
+        '''
         x = self.rect.x
         y = self.rect.y
         self.image = pygame.image.load(self.spin_sprite[self.spin_index]).convert_alpha()
@@ -24,5 +29,10 @@ class Coin(pygame.sprite.Sprite):
         # where im getting the error
         self.spin_index = (self.spin_index+1) % len(self.spin_sprite)
     def update(self):
+        '''
+        this method checks the state of the coin and updates it/spins it.
+        :param = None
+        :returns = None
+        '''
         if self.state == "SPIN":
             self.spin()

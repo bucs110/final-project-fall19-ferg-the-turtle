@@ -11,5 +11,10 @@ class Bullet(pygame.sprite.Sprite):
         self.direction = direction
 
     def update(self):
+        '''
+        this method updates the bullet and moves it across the screen when the hero fires.
+        :param = None
+        :returns = None
+        '''
         if self.direction == "right":
             self.rect.x += 15

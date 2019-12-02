@@ -32,6 +32,11 @@ class Controller:
         self.score = pygame.time.Clock()
 
     def mainLoop(self):
+        '''
+        this method checks the state of the game and runs either the game, the game intro screen, or the game over screen.
+        :param = None
+        :returns = None
+        '''
         while self.run:
             if self.state == "BEGIN":
                 self.gameIntroScreen()
@@ -41,6 +46,11 @@ class Controller:
                 self.gameOverScreen()
 
     def gameIntroScreen(self):
+        '''
+        this method creates a game intro screen
+        :param = None
+        :returns = None
+        '''
         self.hero.kill()
         background = pygame.image.load('assets/Sprites/space.png')
         background_size = self.screen.get_size()
@@ -64,6 +74,11 @@ class Controller:
                         self.mainLoop()
 
     def gameOverScreen(self):
+        '''
+        this method creates a game over screen.
+        :param = None
+        :returns = None
+        '''
         self.hero.kill()
         background = pygame.image.load('assets/Sprites/space.png')
         # will get size of background image
@@ -87,6 +102,11 @@ class Controller:
                         self.mainLoop()
 
     def gameLoop(self):
+        '''
+        this method runs the actual game. It also checks for all the game events
+        :param = None
+        :returns = None
+        '''
         pygame.time.delay(100)
         pygame.key.set_repeat(1, 50)
         while self.state == "GAME":
@@ -96,9 +116,9 @@ class Controller:
             self.platforms.add(plat)
             if random.randrange(4) == 0:
                 self.all_sprites.add(self.platforms)
-                self.obstacles.add(spikes.Spikes(self.width / 3, self.height - 240, 'assets/Sprites/spike.png'),
-                                   wall.Wall(self.width / 4, self.height - 240, 'assets/Sprites/stoneWall.png'),
-                                   coin.Coin(self.width / 5, self.height - 240, 'assets/Sprites/goldCoin1.png'))
+                self.obstacles.add(spikes.Spikes(self.width / 3, self.height / 3, 'assets/Sprites/spike.png'),
+                                   wall.Wall(self.width / 4, self.height / 4, 'assets/Sprites/stoneWall.png'),
+                                   coin.Coin(self.width / 5, self.height / 5, 'assets/Sprites/goldCoin1.png'))
                 self.all_sprites.draw(self.screen)
                 pygame.display.flip()
 
@@ -136,6 +156,11 @@ class Controller:
             pygame.display.flip()
 
     def side_Scroller(self):
+        '''
+        this method continuously scrolls the screen as the game runs.
+        :param = None
+        :returns = None
+        '''
         background = pygame.image.load('assets/Sprites/space.png')
         # will get size of background image
         # may need to go inside gameLoop()
