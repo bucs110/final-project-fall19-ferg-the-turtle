@@ -22,6 +22,11 @@ class Hero(pygame.sprite.Sprite):
         self.run_shoot_index = 0
 
     def run(self):
+        '''
+        this method cycles through images that make the hero look like it is running.
+        :param = None
+        :returns = None
+        '''
         x = self.rect.x
         y = self.rect.y
         self.image = pygame.image.load(self.run_sprite[self.run_index]).convert_alpha()
@@ -32,6 +37,11 @@ class Hero(pygame.sprite.Sprite):
         self.run_index = (self.run_index+1) % len(self.run_sprite)
 
     def jump(self):
+        '''
+        this method cycles through images that make the hero look like the hero is jumping.
+        :param = None
+        :returns = None
+        '''
         x = self.rect.x
         y = self.rect.y
         self.image = pygame.image.load(self.jump_sprite[self.jump_index]).convert_alpha()
@@ -48,6 +58,11 @@ class Hero(pygame.sprite.Sprite):
             self.state = "RUN"
 
     def run_shoot(self):
+        '''
+        this method cycles through images that make the hero look like its running and shooting.
+        :param = None
+        :returns = None
+        '''
         x = self.rect.x
         y = self.rect.y
         self.image = pygame.image.load(self.run_shoot_sprite[self.run_shoot_index]).convert_alpha()
@@ -57,8 +72,13 @@ class Hero(pygame.sprite.Sprite):
         # where im getting the error
         self.run_shoot_index = (self.run_shoot_index+1) % len(self.run_shoot_sprite)
 
-
+        if self.state == "RUN":
     def update(self, state):
+        '''
+        this method checks the state of the hero and updates it accordingly.
+        :param = state
+        :returns = None
+        '''
         self.state = state
         if self.state == "RUN":
             self.run()
