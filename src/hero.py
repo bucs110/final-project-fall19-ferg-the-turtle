@@ -58,12 +58,8 @@ class Hero(pygame.sprite.Sprite):
         self.run_shoot_index = (self.run_shoot_index+1) % len(self.run_shoot_sprite)
 
 
-<<<<<<< HEAD
-    def update(self,state):
-        self.state = state
-=======
     def update(self, state):
->>>>>>> 9f73a45c41bfc1a3b823cd9476a84122fccbed54
+        self.state = state
         if self.state == "RUN":
             self.run()
         elif self.state == "JUMP":
