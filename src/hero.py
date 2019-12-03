@@ -72,15 +72,17 @@ class Hero(pygame.sprite.Sprite):
         # where im getting the error
         self.run_shoot_index = (self.run_shoot_index+1) % len(self.run_shoot_sprite)
 
+        if self.state == "RUN":
     def update(self, state):
         '''
         this method checks the state of the hero and updates it accordingly.
         :param = state
         :returns = None
         '''
-        if state == "RUN":
+        self.state = state
+        if self.state == "RUN":
             self.run()
-        elif state == "JUMP":
+        elif self.state == "JUMP":
             self.jump()
-        elif state == "RUNSHOOT":
+        elif self.state == "RUNSHOOT":
             self.run_shoot()
