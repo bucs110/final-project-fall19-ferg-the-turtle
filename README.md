@@ -43,7 +43,7 @@
 ## Program Design
 * Non-Standard libraries
     * Pygame (https://www.pygame.org/) - cross-platform set of Python modules designed for writing video games. It includes computer graphics and sound libraries designed to be used with the Python programming language.
-    
+
 
 
     * << This picture represents the relationships between the different classes >>
