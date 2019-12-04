@@ -50,7 +50,11 @@
         * ![gui design ](assets/gui_design.jpg)
     * This does not need to be overly detailed, but should show how your code fits into the Model/View/Controller paradigm.
 * Classes
-    * Hero - the hero class  >>
+    * Hero - A class that defines the game character. It is a stationary character that appears to be moving by looping through a sprite sheet. It can jump to avoid obstacles such as spikes or walls, or shoot walls in order to avoid collisions.  
+    * Spikes - A class that defines an obstacle that the game character must avoid. If the character and the sprite collide, the game will end.
+    * Wall - A class that defines an obstacle that the game character must avoid. If the user shoots a bullet from the hero that collides with the wall, it will be erased from the screen.
+    * Coin - A class that defines an object that the character can collide with  to increase the overall score of the current game. The coin appears to be spinning by looping through a list of sprites that display snapshots of a spinning coin.
+    * Bullet - A class that defines an object that can be shot from the game character if the user presses a designated key. If the bullet collides with the sprite from the wall function, both bullet and wall will be erased.
 
 ***
 
