@@ -29,7 +29,7 @@
     This screen is accessed by the user hitting space bar when on the start screen. On this screen, the character and
     screen will be moving. There also will be obstacles on the screen. Pressing the space bar or the up arrow will cause
     the character to jump up. Clicking the 'z' key will allow the character to shoot a bullet across the screen.
-    Picture is not available, this is what it would/should look like:
+    Picture is not available, this is what it would/should look like (the middle picture):
     ![gamescreen](assets/gui_design.jpg)
 
 * << The End Screen/Game Over Screen >>
