@@ -47,7 +47,7 @@
 
 
     * << This picture represents the relationships between the different classes >>
-        * ![gui design ](assets/gui_design.jpg)
+        * ![gui design ](assets/mvcdesign.jpg)
     * This does not need to be overly detailed, but should show how your code fits into the Model/View/Controller paradigm.
 * Classes
     * Hero - A class that defines the game character. It is a stationary character that appears to be moving by looping through a sprite sheet. It can jump to avoid obstacles such as spikes or walls, or shoot walls in order to avoid collisions.  
