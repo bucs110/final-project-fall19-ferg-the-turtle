@@ -12,6 +12,7 @@ class Controller:
     def __init__(self, width=800, height=400):
         self.screen = pygame.display.set_mode((width, height))
         self.background = pygame.Surface(self.screen.get_size()).convert()
+        self.background_pic = 'assets/Sprites/space.png'
         self.state = "BEGIN"
         self.height = height
         self.width = width
@@ -19,7 +20,7 @@ class Controller:
         self.run = True
         self.hero = hero.Hero("Johnny", self.width / 3, self.height / 3, "assets/Sprites/run 1.png", "right", "RUN")
         self.obstacles = pygame.sprite.Group()
-        self.walls = pygame.sprite.Group(wall.Wall(self.width / 4, self.height - 240, 'assets/Sprites/stoneWall.png'))
+        self.wall = wall.Wall(self.width / 4, self.height - 240, 'assets/Sprites/stoneWall.png')
         # add the obstacles into the group here
         self.white = (255, 255, 255)
         self.red = (255, 0, 0)
@@ -50,7 +51,7 @@ class Controller:
         :returns = None
         '''
         self.hero.kill()
-        background = pygame.image.load('assets/Sprites/space.png')
+        background = pygame.image.load(self.background_pic)
         background_size = self.screen.get_size()
         background_rect = background.get_rect()
         background_screen = pygame.display.set_mode(background_size)
@@ -78,17 +79,16 @@ class Controller:
         :returns = None
         '''
         self.hero.kill()
-        background = pygame.image.load('assets/Sprites/space.png')
+        background = pygame.image.load(self.background_pic)
         # will get size of background image
         # if background_screen doesn't work, change to self.screen
         background_size = self.screen.get_size()
-        background_img = self.screen.blit(background)
         background_rect = background.get_rect()
         background_screen = pygame.display.set_mode(background_size)
         background_screen.blit(background, background_rect)
         my_font = pygame.font.SysFont(None, 30)
-        message = my_font.render('Game Over, Press space to play again.', False, (0, 0, 0))
-        background_screen.blit(message, (self.width / 2, self.height / 2))
+        message = my_font.render('Game Over, Press space to play again.', False, (255, 255, 255))
+        background_screen.blit(message, ((self.width / 3) - 50, self.height / 3))
         pygame.display.flip()
         while self.state == "LOSE":
             for event in pygame.event.get():
@@ -106,44 +106,48 @@ class Controller:
         :returns = None
         '''
         pygame.time.delay(100)
-        pygame.key.set_repeat(1, 50)
+        background = pygame.image.load(self.background_pic)
+        background_size = self.screen.get_size()
+        background_rect = background.get_rect()
+        background_screen = pygame.display.set_mode(background_size)
+        background_screen.blit(background, background_rect)
         while self.state == "GAME":
+<<<<<<< HEAD
             self.side_Scroller()
             hero.Hero.run(self.hero)
+=======
+            # self.side_Scroller()
+            self.hero.run()
+>>>>>>> 834aa425321b782cf5a4a9d571c96fddc4f6edfd
             if random.randrange(4) == 0:
-                self.all_sprites.add(self.platforms)
                 self.obstacles.add(spikes.Spikes(self.width / 3, self.height / 3, 'assets/Sprites/spike.png'),
                                    wall.Wall(self.width / 4, self.height / 4, 'assets/Sprites/stoneWall.png'),
                                    coin.Coin(self.width / 5, self.height / 5, 'assets/Sprites/goldCoin1.png'))
                 self.all_sprites.draw(self.screen)
                 pygame.display.flip()
 
-            self.background.fill(self.red)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE or pygame.K_UP:
-                        hero.Hero.update("JUMP")
+                        self.hero.jump()
                     elif event.key == pygame.K_z:
                         b = bullet.Bullet(self.hero.rect.centerx, self.hero.rect.centery, "right",
                                           "assets/Sprites/bullet.png")
                         self.bullets.add(b)
                         self.bullets.update()
-                get_coin = pygame.sprite.spritecollide(self.hero, self.coins, True)
-                bullet_collides = pygame.sprite.spritecollide(self.walls, self.bullets, False)
-                collides = pygame.sprite.spritecollide(self.hero, self.obstacles, True)
-                bullet_collide_count = 0
-                if collides:
-                    self.state = "LOSE"
-                while bullet_collide_count < 2:
-                    if bullet_collides:
-                        bullet_collide_count += 1
-                else:
-                    self.walls.kill()
-                if get_coin:
-                    self.coins.kill()
-                    self.score += 10
+
+            get_coin = pygame.sprite.spritecollide(self.hero, self.coins, True)
+            bullet_collides = pygame.sprite.spritecollide(self.wall, self.bullets, True)
+            collides = pygame.sprite.spritecollide(self.hero, self.obstacles, True)
+            if collides:
+                self.state = "LOSE"
+            elif bullet_collides:
+                self.wall.kill()
+            elif get_coin:
+                self.coins.kill()
+                self.score += 10
 
             self.bullets.update()
             self.screen.blit(self.background, (0, 0))

@@ -7,7 +7,7 @@
 
  https://github.com/bucs110/final-project-fall19-ferg-the-turtle](#)
 
-<< [https://docs.google.com/presentation/d/1SOa7nczo0ujqRfF9WA12pPim8GYhwKMPLZFRsVfK1ZM/edit#slide=id.p](#) >>
+<< [https://docs.google.com/presentation/d/1YZ-FDzJOmY7Qsc7-lrNABPbtwpS0riJZNaZ1BiUilF4/edit#slide=id.p](#) >>
 
 ### Team: Ferg the Turtle
 #### Christopher Simak, Aidan Ferguson, Joe Lieberman
@@ -20,9 +20,23 @@
 ***    
 
 ## User Interface Design
-* << A wireframe or drawing of the user interface concept along with a short description of the interface. You should have one for each screen in your program. >>
-    * For example, if your program has a start screen, game screen, and game over screen, you should include a wireframe / screenshot / drawing of each one and a short description of the components
-* << You should also have a screenshot of each screen for your final GUI >>
+* << The Main Menu/Start Screen >>
+    This screen is the first screen the user sees when main.py is ran. It contains the name of the game (Space Run),
+    and the instructions. If the user hits the 'space' key, the game will run. If the user clicks the red x in the top
+    right, they will exit out of the screen.
+    ![startscreen](assets/Sprites/IMG_1642.jpg)
+* << The Game Screen >>
+    This screen is accessed by the user hitting space bar when on the start screen. On this screen, the character and
+    screen will be moving. There also will be obstacles on the screen. Pressing the space bar or the up arrow will cause
+    the character to jump up. Clicking the 'z' key will allow the character to shoot a bullet across the screen.
+    Picture is not available, this is what it would/should look like:
+    ![gamescreen](assets/Sprites/IMG_1644.jpg)
+
+* << The End Screen/Game Over Screen >>
+    This screen is accessed when the character dies. It will say "Game Over. Press Space to play again". Pressing space
+    will cause the game screen to pop up and the game will run again. To exit the game, the user should press the
+    'red X' in the top left corner.space
+    ![endscreen](assets/Sprites/IMG_1643.jpg)
 
 ***        
 
@@ -49,11 +63,14 @@
 
 ### Front End Specialist - << Joe Lieberman >>
 
-<< Front-end lead conducted significant research on... >>
+Front-end lead conducted significant research on the controller and GUI of the program. The GUI (Graphical User
+Interface) is the screen the user sees when they run the game. The GUI, in this case, consists of the gameIntroScreen,
+game-screen, and gameOverScreen. I also worked with the Back End Specialist on incorporating the models into the
+controller. The controller is where the GUI is created. The controller also contains most of the code for the game.
 
 ### Back End Specialist - << Chris Simak >>
 
- The back end specialist helped with the “Model” portion of Space run by writing the major classes that would be used in the main game. He also created methods for the game mechanics of the hero such as run, jump, and run and shoot.He maintained persistent data by sending the position of the sprites to a json file. He collaborated with the Front End Specialist in the implementation of the classes into our Controller file which uses all of the sprites from the classes to create the game.
+ I helped with the “Model” portion of Space run by writing the major classes that would be used in the main game. I also created methods for the game mechanics of the hero such as run, jump, and run and shoot. I maintained persistent data by sending the position of the sprites to a json file. I worked with the Front End Specialist in the implementation of the classes into our Controller file which uses all of the sprites from the classes to create the game.
 
 
 ## Testing

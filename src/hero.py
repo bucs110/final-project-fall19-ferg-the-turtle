@@ -14,8 +14,13 @@ class Hero(pygame.sprite.Sprite):
         self.run_sprite = ["assets/Sprites/run 1.png", "assets/Sprites/run 2.png", "assets/Sprites/run 3.png",
                            "assets/Sprites/run 4.png", "assets/Sprites/run 5.png", "assets/Sprites/run 6.png"]
         self.run_index = 0
+<<<<<<< HEAD
         self.character_state = state
         self.jump_sprite = ["assets/Sprites/jump1.png"*10,"assets/Sprites/jump2.png"*10]
+=======
+        self.state = state
+        self.jump_sprite = ["assets/Sprites/jump1.png", "assets/Sprites/jump2.png"]
+>>>>>>> 834aa425321b782cf5a4a9d571c96fddc4f6edfd
         self.jump_index = 0
         self.run_shoot_sprite = ["assets/Sprites/runshoot1.png", "assets/Sprites/runshoot2.png",
                                  "assets/Sprites/runshoot3.png", "assets/Sprites/runshoot4.png",
