@@ -42,7 +42,7 @@
 
 ## Program Design
 * Non-Standard libraries
-    * we did not use any non-standard libraries
+    * Pygame (https://www.pygame.org/) - cross-platform set of Python modules designed for writing video games. It includes computer graphics and sound libraries designed to be used with the Python programming language.
 
 
 
@@ -63,7 +63,7 @@
 
 ### Software Lead - << Aidan Ferguson  >>
 
-<< Worked as integration specialist by... >>
+<< Worked as integration specialist by ensuring compatibility of the GUI against the controller, running periodic tests to gauge efficiency and quality of code. I used the process shown in the ATP to outline order in which different classes and methods were implemented. Proposed integration of different elements such as coin spinning and character animations were discussed and in each case our group was able to come to a conclusive decision on the conflict without setback.    >>
 
 ### Front End Specialist - << Joe Lieberman >>
 
@@ -81,7 +81,7 @@ controller. The controller is where the GUI is created. The controller also cont
 * << Describe your testing strategy for your project. >>
     * << Example >>
 
-* Your ATP
+--ATP--
 
 | Step                  | Procedure     | Expected Results  | Actual Results |
 | ----------------------|:-------------:| -----------------:| -------------- |
