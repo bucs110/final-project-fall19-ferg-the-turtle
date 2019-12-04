@@ -7,7 +7,7 @@
 
  https://github.com/bucs110/final-project-fall19-ferg-the-turtle](#)
 
-<< [https://docs.google.com/presentation/d/1YZ-FDzJOmY7Qsc7-lrNABPbtwpS0riJZNaZ1BiUilF4/edit#slide=id.p](#) >>
+[https://docs.google.com/presentation/d/1YZ-FDzJOmY7Qsc7-lrNABPbtwpS0riJZNaZ1BiUilF4/edit#slide=id.p](#) 
 
 ### Team: Ferg the Turtle
 #### Christopher Simak, Aidan Ferguson, Joe Lieberman
