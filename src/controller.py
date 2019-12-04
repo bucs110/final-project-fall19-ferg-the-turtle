@@ -5,7 +5,6 @@ from src import hero
 from src import bullet
 from src import spikes
 from src import wall
-from src import platform
 from src import coin
 
 
@@ -27,7 +26,6 @@ class Controller:
         self.black = (0, 0, 0)
         self.coins = pygame.sprite.Group(coin.Coin(self.width / 5, self.height - 240, 'assets/Sprites/goldCoin1.png'))
         self.bullets = pygame.sprite.Group()
-        self.platforms = pygame.sprite.Group()
         self.all_sprites = pygame.sprite.Group((self.hero,) + tuple(self.obstacles))
         self.score = pygame.time.Clock()
 
@@ -112,8 +110,6 @@ class Controller:
         while self.state == "GAME":
             self.side_Scroller()
             hero.Hero.run(self.hero)
-            plat = platform.Platform(self.width, 240, 0, self.height - 240, (0, 0, 255))
-            self.platforms.add(plat)
             if random.randrange(4) == 0:
                 self.all_sprites.add(self.platforms)
                 self.obstacles.add(spikes.Spikes(self.width / 3, self.height / 3, 'assets/Sprites/spike.png'),

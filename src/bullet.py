@@ -9,6 +9,7 @@ class Bullet(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
         self.direction = direction
+        self.current_state = ""
 
     def update(self):
         '''
@@ -18,3 +19,13 @@ class Bullet(pygame.sprite.Sprite):
         '''
         if self.direction == "right":
             self.rect.x += 15
+    def position(self):
+        '''
+        this method returns the positon of the sprite to a text file
+        :param = None
+        :returns = None
+        '''
+        positionref = open("position.txt","w")
+        self.current_state = " Position of Bullet = "+ "("+ str(self.rect.x)+","+ str(self.rect.y)+")"
+        positionref.write(self.current_state)
+        positionref.close()

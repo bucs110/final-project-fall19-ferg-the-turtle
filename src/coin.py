@@ -36,3 +36,13 @@ class Coin(pygame.sprite.Sprite):
         '''
         if self.state == "SPIN":
             self.spin()
+    def position(self):
+        '''
+        this method returns the positon of the sprite to a text file
+        :param = None
+        :returns = None
+        '''
+        positionref = open("position.txt","w")
+        self.current_state = " Position of Coin (x,y) = "+ "("+ str(self.rect.x)+","+ str(self.rect.y)+")"
+        positionref.write(self.current_state)
+        positionref.close()
