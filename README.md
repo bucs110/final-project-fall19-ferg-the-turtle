@@ -24,7 +24,7 @@ This game is a 2-D sidescroller. The player spawns in as a character that runs s
     This screen is the first screen the user sees when main.py is ran. It contains the name of the game (Space Run),
     and the instructions. If the user hits the 'space' key, the game will run. If the user clicks the red x in the top
     right, they will exit out of the screen.
-    ![startscreen](assets/Sprites/IMG_1642.jpg)
+    ![startscreen](assets/gui_design.jpg)
 * << The Game Screen >>
     This screen is accessed by the user hitting space bar when on the start screen. On this screen, the character and
     screen will be moving. There also will be obstacles on the screen. Pressing the space bar or the up arrow will cause
