@@ -63,7 +63,7 @@
 
 ### Software Lead - << Aidan Ferguson  >>
 
-<< Worked as integration specialist by ensuring compatibility of the GUI against the controller, running periodic tests to gauge efficiency and quality of code. I used the process shown in the ATP to outline order in which different classes and methods were implemented. Proposed integration of different elements such as coin spinning and character animations were discussed and in each case our group was able to come to a conclusive decision on the conflict without setback.    >>
+ Worked as integration specialist by ensuring compatibility of the GUI against the controller, running periodic tests to gauge efficiency and quality of code. I used the process shown in the ATP to outline order in which different classes and methods were implemented. Proposed integration of different elements such as coin spinning and character animations were discussed and in each case our group was able to come to a conclusive decision on the conflict without setback.    
 
 ### Front End Specialist - << Joe Lieberman >>
 
