@@ -24,13 +24,13 @@
     This screen is the first screen the user sees when main.py is ran. It contains the name of the game (Space Run),
     and the instructions. If the user hits the 'space' key, the game will run. If the user clicks the red x in the top
     right, they will exit out of the screen.
-    ![startscreen](assets/gui_design.jpg)
+    ![startscreen](assets/Sprites/IMG_1642.jpg)
 * << The Game Screen >>
     This screen is accessed by the user hitting space bar when on the start screen. On this screen, the character and
     screen will be moving. There also will be obstacles on the screen. Pressing the space bar or the up arrow will cause
     the character to jump up. Clicking the 'z' key will allow the character to shoot a bullet across the screen.
     Picture is not available, this is what it would/should look like:
-    ![gamescreen](assets/Sprites/IMG_1644.jpg)
+    ![gamescreen](assets/gui_design.jpg)
 
 * << The End Screen/Game Over Screen >>
     This screen is accessed when the character dies. It will say "Game Over. Press Space to play again". Pressing space
