@@ -64,7 +64,10 @@
 
 ### Front End Specialist - << Joe Lieberman >>
 
-<< Front-end lead conducted significant research on... >>
+Front-end lead conducted significant research on the controller and GUI of the program. The GUI (Graphical User
+Interface) is the screen the user sees when they run the game. The GUI, in this case, consists of the gameIntroScreen,
+gamescreen, and gameOverScreen. I also worked with the Back End Specialist on incorporating the models into the
+controller. The controller is where the GUI is created. The controller also contains most of the code for the game.
 
 ### Back End Specialist - << Chris Simak >>
 
