@@ -5,9 +5,9 @@
 ###    Fall, 2019
 ### [Assignment Description](https://drive.google.com/open?id=1HLIk-539N9KiAAG1224NWpFyEl4RsPVBwtBZ9KbjicE)
 
- https://github.com/bucs110/final-project-fall19-ferg-the-turtle](#)
+ (https://github.com/bucs110/final-project-fall19-ferg-the-turtle)(#)
 
-[https://docs.google.com/presentation/d/1YZ-FDzJOmY7Qsc7-lrNABPbtwpS0riJZNaZ1BiUilF4/edit#slide=id.p](#) 
+(https://docs.google.com/presentation/d/1YZ-FDzJOmY7Qsc7-lrNABPbtwpS0riJZNaZ1BiUilF4/edit#slide=id.p)(#) 
 
 ### Team: Ferg the Turtle
 #### Christopher Simak, Aidan Ferguson, Joe Lieberman
