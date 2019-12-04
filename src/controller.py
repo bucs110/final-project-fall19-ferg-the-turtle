@@ -13,7 +13,7 @@ class Controller:
         self.screen = pygame.display.set_mode((width, height))
         self.background = pygame.Surface(self.screen.get_size()).convert()
         self.background_pic = 'assets/Sprites/space.png'
-        self.state = "BEGIN"
+        self.state = "GAME"
         self.height = height
         self.width = width
         self.jump = True
