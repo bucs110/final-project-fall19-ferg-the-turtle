@@ -20,8 +20,20 @@
 ***    
 
 ## User Interface Design
-* << A wireframe or drawing of the user interface concept along with a short description of the interface. You should have one for each screen in your program. >>
-    * For example, if your program has a start screen, game screen, and game over screen, you should include a wireframe / screenshot / drawing of each one and a short description of the components
+* << The Main Menu/Start Screen >>
+    This screen is the first screen the user sees when main.py is ran. It contains the name of the game (Space Run),
+    and the instructions. If the user hits the 'space' key, the game will run. If the user clicks the red x in the top
+    right, they will exit out of the screen.
+    ![startscreen](assets/Sprites/IMG_1642.jpg)
+   *<< The Game Screen >>
+    This screen is accessed by the user hitting space bar when on the start screen. On this screen, the character and
+    screen will be moving. There also will be obstacles on the screen. Pressing the space bar or the up arrow will cause
+    the character to jump up. Clicking the 'z' key will allow the character to shoot a bullet across the screen.
+    *<< The End Screen/Game Over Screen >>
+    This screen is accessed when the character dies. It will say "Game Over. Press Space to play again". Pressing space
+    will cause the game screen to pop up and the game will run again. To exit the game, the user should press the
+    'red X' in the top left corner.space
+    ![endscreen](assets/Sprites/IMG_1643.jpg)
 * << You should also have a screenshot of each screen for your final GUI >>
 
 ***        
