@@ -15,11 +15,7 @@
 ***
 
 ## Project Description
-<<<<<<< HEAD
-<< Give an overview of your project  >>
-=======
-This game is a 2-D sidescroller. The player spawns in as a character that runs sideways. In the way of the character are obstacles (spikes and wall). The player can fire a bullet to destroy these obstacles. If the player comes into contact with any of these obstacles, the game will end. As the game goes on, the player collects coins to increase his score.
->>>>>>> 849979ac9c543fe270b5e51187ac1c5ac82a4c6f
+ This game is a 2-D sidescroller. The player spawns in as a character that runs sideways. In the way of the character are obstacles (spikes and wall). The player can fire a bullet to destroy these obstacles. If the player comes into contact with any of these obstacles, the game will end. As the game goes on, the player collects coins to increase his score.
 
 ***    
 
@@ -54,7 +50,7 @@ This game is a 2-D sidescroller. The player spawns in as a character that runs s
         * ![gui design ](assets/gui_design.jpg)
     * This does not need to be overly detailed, but should show how your code fits into the Model/View/Controller paradigm.
 * Classes
-    * << You should have a list of each of your classes with a description. >>
+    * Hero - the hero class  >>
 
 ***
 
