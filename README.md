@@ -7,7 +7,7 @@
 
  (https://github.com/bucs110/final-project-fall19-ferg-the-turtle)(#)
 
-(https://docs.google.com/presentation/d/1YZ-FDzJOmY7Qsc7-lrNABPbtwpS0riJZNaZ1BiUilF4/edit#slide=id.p)(#) 
+(https://docs.google.com/presentation/d/1YZ-FDzJOmY7Qsc7-lrNABPbtwpS0riJZNaZ1BiUilF4/edit#slide=id.p)(#)
 
 ### Team: Ferg the Turtle
 #### Christopher Simak, Aidan Ferguson, Joe Lieberman
@@ -15,7 +15,7 @@
 ***
 
 ## Project Description
-This game is a 2-D sidescroller. The player spawns in as a character that runs sideways. In the way of the character are obstacles (spikes and wall). The player can fire a bullet to destroy these obstacles. If the player comes into contact with any of these obstacles, the game will end. As the game goes on, the player collects coins to increase his score.
+ This game is a 2-D sidescroller. The player spawns in as a character that runs sideways. In the way of the character are obstacles (spikes and wall). The player can fire a bullet to destroy these obstacles. If the player comes into contact with any of these obstacles, the game will end. As the game goes on, the player collects coins to increase his score.
 
 ***    
 
@@ -42,7 +42,7 @@ This game is a 2-D sidescroller. The player spawns in as a character that runs s
 
 ## Program Design
 * Non-Standard libraries
-    * We did not use any non-standard libraries for this project.
+    * Pygame (https://www.pygame.org/) - cross-platform set of Python modules designed for writing video games. It includes computer graphics and sound libraries designed to be used with the Python programming language.
 
 
 
@@ -50,7 +50,7 @@ This game is a 2-D sidescroller. The player spawns in as a character that runs s
         * ![gui design ](assets/gui_design.jpg)
     * This does not need to be overly detailed, but should show how your code fits into the Model/View/Controller paradigm.
 * Classes
-    * << You should have a list of each of your classes with a description. >>
+    * Hero - the hero class  >>
 
 ***
 
