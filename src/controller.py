@@ -112,8 +112,13 @@ class Controller:
         background_screen = pygame.display.set_mode(background_size)
         background_screen.blit(background, background_rect)
         while self.state == "GAME":
+<<<<<<< HEAD
+            self.side_Scroller()
+            hero.Hero.run(self.hero)
+=======
             # self.side_Scroller()
             self.hero.run()
+>>>>>>> 834aa425321b782cf5a4a9d571c96fddc4f6edfd
             if random.randrange(4) == 0:
                 self.obstacles.add(spikes.Spikes(self.width / 3, self.height / 3, 'assets/Sprites/spike.png'),
                                    wall.Wall(self.width / 4, self.height / 4, 'assets/Sprites/stoneWall.png'),

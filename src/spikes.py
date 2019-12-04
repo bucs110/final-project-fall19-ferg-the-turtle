@@ -1,4 +1,5 @@
 import pygame
+import json
 
 
 class Spikes(pygame.sprite.Sprite):
@@ -8,3 +9,14 @@ class Spikes(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+        self.current_state = ""
+    def position(self):
+        '''
+        this method returns the positon of the sprite to a text file
+        :param = None
+        :returns = None
+        '''
+        positionref = open("position.txt","w")
+        self.current_state = " Position of Spikes = "+ "("+ str(self.rect.x)+","+ str(self.rect.y)+")"
+        positionref.write(self.current_state)
+        positionref.close()
