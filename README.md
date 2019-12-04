@@ -42,7 +42,7 @@
 
 ## Program Design
 * Non-Standard libraries
-    * We did not use sny non-standard libraries for this project.
+    * We did not use any non-standard libraries for this project.
 
 
 
