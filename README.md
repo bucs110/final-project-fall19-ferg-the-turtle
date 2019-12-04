@@ -31,7 +31,7 @@
     the character to jump up. Clicking the 'z' key will allow the character to shoot a bullet across the screen.
     Picture is not available, this is what it would/should look like:
     ![gamescreen](assets/Sprites/IMG_1644.jpg)
-    *<< The End Screen/Game Over Screen >>
+   *<< The End Screen/Game Over Screen >>
     This screen is accessed when the character dies. It will say "Game Over. Press Space to play again". Pressing space
     will cause the game screen to pop up and the game will run again. To exit the game, the user should press the
     'red X' in the top left corner.space
