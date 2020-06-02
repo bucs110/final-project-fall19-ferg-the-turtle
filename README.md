@@ -42,7 +42,7 @@
 
 ## Program Design
 * Non-Standard libraries
-    * we did not use any non-standard libraries
+    * Pygame (https://www.pygame.org/) - cross-platform set of Python modules designed for writing video games. It includes computer graphics and sound libraries designed to be used with the Python programming language.
 
 
 
@@ -63,7 +63,7 @@
 
 ### Software Lead - << Aidan Ferguson  >>
 
-<< Worked as integration specialist by... >>
+ Worked as integration specialist by ensuring compatibility of the GUI against the controller, running periodic tests to gauge efficiency and quality of code. I used the process shown in the ATP to outline order in which different classes and methods were implemented. Proposed integration of different elements such as coin spinning and character animations were discussed and in each case our group was able to come to a conclusive decision on the conflict without setback.    
 
 ### Front End Specialist - << Joe Lieberman >>
 
@@ -78,10 +78,9 @@ controller. The controller is where the GUI is created. The controller also cont
 
 
 ## Testing
-* << Describe your testing strategy for your project. >>
-    * << Example >>
+*  Began by using pdb module to scan for minor errors/bugs within main controller file and all implemented classes. Once flagged bugs were addressed using the module, code was run in parts to verify the integrity of each end separately in order to avoid confusion over which classes and functions were functioning properly and when. If front end GUI opened successfully and the controller and its classes were free of error, I would then run the program from the gameIntroScreen and use controls to advance the game into game-screen, then operate the hero in the game and purposely lose by allowing the self.running behavior to end via an obstacle (either spikes, lava, or destructible wall) and ensure that self.hero.kill would deplete the hero's health and transition into gameOverScreen. (Current code maintains a GUI to game controller transition issue preventing game-screen from executing properly)
 
-* Your ATP
+--ATP--
 
 | Step                  | Procedure     | Expected Results  | Actual Results |
 | ----------------------|:-------------:| -----------------:| -------------- |
