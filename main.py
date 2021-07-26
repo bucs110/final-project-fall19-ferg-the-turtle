@@ -1,7 +1,6 @@
 import pygame
 from src import controller
 
-
 def main():
     '''
     this function runs the game
